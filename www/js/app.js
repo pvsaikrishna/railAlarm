@@ -37,6 +37,14 @@ App.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+  .state('train', {
+      url: '/train',
+      views: {
+        'homeView': {
+          templateUrl: 'templates/enterTrain.html'
+        }
+      }
+    })
 ;
 
 

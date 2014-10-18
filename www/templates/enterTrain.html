@@ -1,0 +1,42 @@
+<div ng-controller="EnterTrain">
+<div class="list">
+ <label class="item item-input item-floating-label">
+    <span class="input-label">Train Number</span>
+    <input type="number" ng-model="trainNo" placeholder="Train Number">
+  </label>
+</div>
+
+<div ng-show="hasTrainSchedule">
+	
+
+	<div class="list">
+
+ 	 <label class="item item-input item-select">
+  	  <div class="input-label">
+  	    From Station
+  	  </div>
+		<select class="span12" id="actionType" ng-change='enableFields()' ng-required="true" ng-model="fromStation" ng-options="route.station.name for route in responseData.train.route">
+            
+    	</select>
+  	</label>
+
+  	<label class="item item-input item-select">
+  	  <div class="input-label">
+  	    To Station
+  	  </div>
+		<select class="span12" id="actionType" ng-change='enableFields()' ng-required="true" ng-model="toStation" ng-options="route.station.name for route in responseData.train.route">
+            
+    	</select>
+  	</label>
+
+	</div>
+
+</div>
+
+<br><br><br>
+<button ng-show="!hasTrainSchedule" class="button button-positive pnrNextButton" ng-click="getTrainSchedule()" >Next !</button>
+
+<button ng-show="hasTrainSchedule" class="button button-positive pnrNextButton" >Done !</button>
+
+
+</div>
