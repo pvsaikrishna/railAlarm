@@ -1,1 +1,48 @@
 /* Empty. Add your own CSS if you like */
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: 150px;
+  margin-left: -120px;
+}
+
+div.vertical-line{
+  width: 2px; /* Line width */
+  background-color: black; /* Line color */
+  height: 120px; /* Override in-line if you want specific height. */
+  float: left; /* Causes the line to float to left of content. 
+    You can instead use position:absolute or display:inline-block
+    if this fits better with your design */
+  position: relative;
+  top: -15px;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+span.trackjourney{
+	position: relative;
+	top: -15px;
+}
+
+span.tracknumber{
+	position: relative;
+        top: -15px;
+}
+
+button.track{
+	width: 50%;
+}
+
+.floatleft{
+	float: left;
+}
+
+.floatright{
+	float: right;
+}
+
+.pnrNextButton{
+	position: relative;
+	left: 46%;
+}
