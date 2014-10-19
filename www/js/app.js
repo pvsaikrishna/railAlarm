@@ -45,6 +45,14 @@ App.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+  .state('confirmation', {
+      url: '/confirmation',
+      views: {
+        'homeView': {
+          templateUrl: 'templates/detailsConfirmation.html'
+        }
+      }
+    })
 ;
 
 

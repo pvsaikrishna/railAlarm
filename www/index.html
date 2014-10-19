@@ -28,20 +28,19 @@
       <script src="js/services/RailPNRAPI.js"></script>
 
     <!-- controllers -->
+      <script src="js/controllers/homeController.js"></script>
       <script src="js/controllers/enterPNR.js"></script>
       <script src="js/controllers/enterTrain.js"></script>
-	
-      
-
   </head>
-  <body >
+
+  <body ng-controller="HomeController">
 
     <ion-pane>
       <ion-header-bar class="bar-dark">
 	<a href="#/home">
 		<button class="button icon ion-home"></button>
 	</a>
-	<h1 class="title">Track my Journey</h1>
+	<h1 class="title"> {{title}}</h1>
 	<button class="button icon ion-share"></button>
       </ion-header-bar>
       <ion-content>

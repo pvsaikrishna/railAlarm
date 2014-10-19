@@ -1,4 +1,7 @@
-App.controller('EnterPNR', function($railPnrApi,$scope){
+App.controller('EnterPNR', function($railPnrApi, $scope, $rootScope){
+
+
+	$rootScope.$broadcast("changeTitle", "Enter PNR");
 
 	var parsePNRResponse = function(data){
 		console.log(data);
