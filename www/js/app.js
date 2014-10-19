@@ -45,7 +45,6 @@ App.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-<<<<<<< HEAD
   .state('confirmation', {
       url: '/confirmation',
       views: {
@@ -54,8 +53,6 @@ App.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
-=======
->>>>>>> a97ca1cc212d47a5bcab44f9696ca17f3b6a5e9e
 ;
 
 
