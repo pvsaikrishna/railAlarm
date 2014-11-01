@@ -1,6 +1,6 @@
 "use strict";
 
-App.service('$railPnrApi', function($http){
+App.service('$railPnrApi', function($http, $httpService){
 
 	var baseUrl = "http://railpnrapi.com/test/";
 
@@ -34,33 +34,7 @@ App.service('$railPnrApi', function($http){
 
 		var url = baseUrl+"check_pnr/pnr/"+pnr+"/format/json/pbapikey/"+_public_token+"/pbapisign/"+hmacSignature;
 
-	
-
-//		$http.get(url).success(callback);
-
-
-		$.ajax({
-            url: url,
-            method: 'GET',
-            crossDomain: true,
-            dataType: 'json',
-	    headers: {'Access-Control-Allow-Origin':'*'},
-            success: function(data){
-
-		alert(data);
-
-            },
-            error: function(data){
-		alert(data);
-            alert('ERROR');
-            }
-        });
-
-		
+		return $httpService.get(url);
 	}
-
-
-
-	
 
 });

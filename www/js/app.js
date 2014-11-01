@@ -3,10 +3,15 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-window.App = angular.module('railTrack', ['ionic']);
+window.App = angular.module('railTrack', ['ionic','ngCordova']);
 
-App.run(function($ionicPlatform) {
+window.isAndroid = false;
+
+App.run(function($ionicPlatform, $cordovaLocalNotification) {
   $ionicPlatform.ready(function() {
+
+    window.isAndroid = ionic.Platform.isAndroid();
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {

@@ -1,4 +1,4 @@
-App.controller('EnterPNR', function($railPnrApi, $scope, $rootScope){
+App.controller('EnterPNR', function($railPnrApi, $scope, $rootScope, $cordovaLocalNotification){
 
 
 	$rootScope.$broadcast("changeTitle", "Enter PNR");
@@ -7,8 +7,17 @@ App.controller('EnterPNR', function($railPnrApi, $scope, $rootScope){
 		console.log(data);
 	};
 
+
 	$scope.getPNRDetails = function(){
-		$railPnrApi.getPnrStatus($scope.pnr);
+
+		var promise = $railPnrApi.getPnrStatus($scope.pnr);
+
+		promise.then(function(data) {
+  			alert('Success: ' + data);
+		}, function(reason) {
+  			alert('Failed: ' + data);
+		});
+
 	}
 
 })
