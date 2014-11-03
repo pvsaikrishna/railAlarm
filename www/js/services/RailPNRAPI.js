@@ -7,6 +7,15 @@ App.service('$railPnrApi', function($http, $httpService){
 	var _public_token = "23d71e07a273ca43c565000418dd7867";
 	var _private_token = "c8bf74082eea9bc309fafe24f5fd402e";
 
+	var self = this;
+
+	this.travelDetails = {};
+
+	this.clearTravelDetails = function(){
+		self.travelDetails = {};
+	};
+
+
 	var getHMACSignature = function(paramsString){
 
 		var shaObj = new jsSHA(paramsString, "TEXT");
@@ -35,6 +44,6 @@ App.service('$railPnrApi', function($http, $httpService){
 		var url = baseUrl+"check_pnr/pnr/"+pnr+"/format/json/pbapikey/"+_public_token+"/pbapisign/"+hmacSignature;
 
 		return $httpService.get(url);
-	}
+	};
 
 });

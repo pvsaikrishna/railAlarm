@@ -1,24 +1,30 @@
-<div ng-controller="EnterPNR">
+<div ng-controller="DetailsConfirmation">
 
 <div class="row">
   <div class="col col-50">Train No</div>
-  <div class="col"> 12072 </div>
+  <div class="col"> {{travelDetails.trainName}} </div>
 </div>
 
 <div class="row">
   <div class="col col-50">Train Name</div>
-  <div class="col"> Telangana Express </div>
+  <div class="col"> {{travelDetails.trainNo}} </div>
 </div>
 
 <div class="row">
   <div class="col col-50">From Station</div>
-  <div class="col"> Secundrabad (SC) </div>
+  <div class="col"> {{travelDetails.fromStationName}} ({{travelDetails.fromStationCode}}) </div>
 </div>
 
 <div class="row">
   <div class="col col-50">To Stations</div>
-  <div class="col"> Kazipet (KZJ) </div>
+  <div class="col"> {{travelDetails.toStationName}} ({{travelDetails.toStationCode}}) </div>
 </div>
+ 
+ <div>
+  Notify <input type='number' ng-model="travelDetails.distanceToAlarm" value='20'  class="glowing-border" /> KMs before destination.
+</div>	
 
-<button class="button button-positive pnrNextButton" ng-click="getPNRDetails()" >Next !</button>
+<button class="button button-positive pnrNextButton" ng-click="saveDetails()" >Track Journey !</button>
+<button class="button button-clear pnrNextButton button-positive" ng-click="close()">Cancel</button>
+
 </div>

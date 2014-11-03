@@ -1,4 +1,4 @@
-App.controller('EnterTrain', function($railPnrApi, $scope, $rootScope){
+App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope){
 	$rootScope.$broadcast("changeTitle", "Enter Train Number");
 
 
@@ -6,6 +6,10 @@ App.controller('EnterTrain', function($railPnrApi, $scope, $rootScope){
 	
 	$scope.hasTrainSchedule = false;
 
+
+	$scope.close = function(){
+		$state.transitionTo("home");
+	}
 
 	$scope.getTrainSchedule = function(){
 

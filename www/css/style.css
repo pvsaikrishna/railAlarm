@@ -46,3 +46,15 @@ button.track{
 	position: relative;
 	left: 46%;
 }
+
+.glowing-border {
+    display: inline !important;   width: 40px !important;    padding-left: 1px !important; padding-bottom: 4px !important; border: 2px solid #dadada !important; border-radius: 7px !important;
+}
+
+.glowing-border:focus { 
+  display: inline !important;   width: 40px !important;    padding-left: 1px !important; padding-bottom: 4px !important; 
+    outline: none !important;
+    border-color: #9ecaed !important;
+    box-shadow: 0 0 10px #9ecaed !important;
+}
+
