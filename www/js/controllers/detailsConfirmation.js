@@ -1,4 +1,4 @@
-App.controller('DetailsConfirmation', function($railPnrApi, $state, $scope, $rootScope, $dataService){
+App.controller('DetailsConfirmation', function($railPnrApi, $state, $scope, $rootScope, $dataService, $cordovaToast){
 	$rootScope.$broadcast("changeTitle", "Confirm Details");
 
 
@@ -15,7 +15,13 @@ App.controller('DetailsConfirmation', function($railPnrApi, $state, $scope, $roo
 
 		var promise = $dataService.saveTravelDetails();
 
-		promise.then(function(res){  $state.transitionTo("home");},
+		promise.then(function(res){ 
+			$cordovaToast.showShortTop('Saved travel details.').then(function(success) {
+    			// success
+ 			 }, function (error) {
+   			 // error
+  			});
+		 $state.transitionTo("home");},
 		 function(error){ });
 	};
 
