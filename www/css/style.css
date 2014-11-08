@@ -44,7 +44,7 @@ button.track{
 
 .pnrNextButton{
 	position: relative;
-	left: 46%;
+	left: 40%;
 }
 
 .glowing-border {
@@ -56,5 +56,9 @@ button.track{
     outline: none !important;
     border-color: #9ecaed !important;
     box-shadow: 0 0 10px #9ecaed !important;
+}
+
+ a {
+      text-decoration:none;
 }
 
