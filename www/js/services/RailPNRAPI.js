@@ -15,6 +15,10 @@ App.service('$railPnrApi', function($http, $httpService){
 		self.travelDetails = {};
 	};
 
+	this.addTravelDetails = function(key, value){
+		self.travelDetails[key] = value;
+	}
+
 
 	var getHMACSignature = function(paramsString){
 
@@ -27,7 +31,16 @@ App.service('$railPnrApi', function($http, $httpService){
 
 	};
 
-	this.getPnrStatus = function(pnr, callback){
+	this.getJSObject = function(data){
+		if(typeof data == 'string'){
+				return JSON.parse(data);
+			}else{
+				return data;	
+		}
+
+	}
+
+	this.getPnrStatus = function(pnr){
 	
 		/*
 			params : pnr, format,pbapikey
@@ -45,5 +58,24 @@ App.service('$railPnrApi', function($http, $httpService){
 
 		return $httpService.get(url);
 	};
+
+	this.getTrainSchedule = function(trainNo){
+
+		/*
+			params : trainNo, format,pbapikey
+	
+			sorted order = format,pbapikey,trainNo
+		*/
+
+		var hmacText = 'json'+_public_token+trainNo;
+		hmacText = hmacText.toLowerCase();
+
+		var hmacSignature = getHMACSignature(hmacText);	
+
+
+		var url = baseUrl+"route/train/"+trainNo+"/format/json/pbapikey/"+_public_token+"/pbapisign/"+hmacSignature; 
+
+		return $httpService.get(url);
+	}
 
 });

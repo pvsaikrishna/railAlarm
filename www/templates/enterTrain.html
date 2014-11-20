@@ -1,5 +1,5 @@
 <div ng-controller="EnterTrain">
-<div class="list">
+<div ng-show="!hasTrainSchedule" class="list">
  <label class="item item-input item-floating-label">
     <span class="input-label">Train Number</span>
     <input type="number" ng-model="trainNo" placeholder="Train Number">
@@ -11,11 +11,28 @@
 
 	<div class="list">
 
+  <label class="item item-input">
+    <span class="input-label">Train Name </span>
+    <span> {{ trainData.name }}</span>
+  </label>
+
+
+  <label class="item item-input">
+    <span class="input-label">Train No </span>
+    <span> {{ trainData.number }}</span>
+  </label>
+
+  <label class="item item-input" ng-click="showDatePicker()">
+    <span class="input-label">Date of Journey</span> 
+    <input type="text"  ng-model='dojString' value="{{dojString}}">
+  </label>
+
+<div ng-show="stationSelectable">
  	 <label class="item item-input item-select">
   	  <div class="input-label">
   	    From Station
   	  </div>
-		<select class="span12" id="actionType" ng-change='enableFields()' ng-required="true" ng-model="fromStation" ng-options="route.station.name for route in responseData.train.route">
+		<select class="span12" id="actionType" ng-change='enableFields()' ng-required="true" ng-disabled="stationSelectable" ng-model="fromStation" ng-options="route.station.name for route in responseData.train.route">
             
     	</select>
   	</label>
@@ -24,10 +41,17 @@
   	  <div class="input-label">
   	    To Station
   	  </div>
-		<select class="span12" id="actionType" ng-change='enableFields()' ng-required="true" ng-model="toStation" ng-options="route.station.name for route in responseData.train.route">
+		<select class="span12" id="actionType" ng-change='enableFields()' ng-required="true" ng-disabled="stationSelectable" ng-model="toStation" ng-options="route.station.name for route in responseData.train.route">
             
     	</select>
   	</label>
+  </div>
+
+  <div ng-show="!stationSelectable">
+    The selected train is not scheduled on {{dojString}}. 
+  </div>
+
+ 
 
 	</div>
 

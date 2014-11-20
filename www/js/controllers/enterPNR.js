@@ -22,21 +22,24 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 
 			var data = JSON.parse(responseData.data);
 
-  			var travelDetails = {};
-  			travelDetails.pnr = data.pnr;
-  			travelDetails.doj = data.doj;
-  			travelDetails.fromStationName = data.from_station.name;
-  			travelDetails.fromStationCode = data.from_station.code;
-  			travelDetails.toStationName = data.to_station.name;
-  			travelDetails.toStationCode = data.to_station.code;
-  			travelDetails.trainName = data.train_name;
-  			travelDetails.trainNo = data.train_num;
-  			travelDetails.pnrStatus = data.passengers[0].current_status;
+			//var data = responseData.data;
 
-  			$railPnrApi.travelDetails = travelDetails;
+			$railPnrApi.clearTravelDetails();
+
+			$railPnrApi.addTravelDetails('pnr', data.pnr);
+			$railPnrApi.addTravelDetails('doj', data.doj);
+			$railPnrApi.addTravelDetails('fromStationName', data.from_station.name);
+			$railPnrApi.addTravelDetails('fromStationCode', data.from_station.code);
+			$railPnrApi.addTravelDetails('toStationName', data.to_station.name);
+			$railPnrApi.addTravelDetails('toStationCode', data.to_station.code);
+			$railPnrApi.addTravelDetails('trainName', data.train_name);
+			$railPnrApi.addTravelDetails('trainNo', data.train_num);
+			//TODO get pnr status of the last passender instead of the fist
+			$railPnrApi.addTravelDetails('pnrStatus', data.passengers[0].current_status);
+
   			$state.transitionTo("confirmation");
-  		}catch(err){ }
-		}, function(reason) {
+  			}catch(err){ }
+		}, function(error) {
   			
 		});
 

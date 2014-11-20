@@ -24,7 +24,7 @@ App.service('$httpService', function($cordovaHttp, $q, $timeout, $ionicLoading){
 
 		if(window.isAndroid){
  				$cordovaHttp.get(url, {}, {}).then(function(data){
-                                q.resolve(data);
+                                q.resolve( data );
                         }, function(error){
                                 q.reject(error);
                         }).finally( function(){

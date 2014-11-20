@@ -1,4 +1,4 @@
-App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope){
+App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $cordovaDatePicker, $dateService){
 	$rootScope.$broadcast("changeTitle", "Enter Train Number");
 
 
@@ -6,17 +6,92 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope){
 	
 	$scope.hasTrainSchedule = false;
 
+	var canSelectStation = function(date){
+
+		var day = $dateService.getFormattedDay(date);
+
+		for (i = 0; i < $scope.trainData.days.length; i++) {
+    		if ($scope.trainData.days[i].day-code == day) {
+      			  if ($scope.trainData.days[i].runs == "Y") {
+         		   return true
+       			 } else {
+         		   return false;
+    	    	}
+    		}
+		}
+	};
 
 	$scope.close = function(){
 		$state.transitionTo("home");
 	}
 
+
+
+
 	$scope.getTrainSchedule = function(){
+
+		var promise = $railPnrApi.getTrainSchedule($scope.trainNo);
+
+
+		promise.then(function(responseData) {
+
+			try{
+
+			$scope.hasTrainSchedule = true;
+			
+			responseData = $railPnrApi.getJSObject(responseData);
+
+			var data = $railPnrApi.getJSObject(responseData.data);
+
+			$scope.trainData = $railPnrApi.getJSObject(data.train);
+			
+
+			$railPnrApi.clearTravelDetails();
+
+			$railPnrApi.addTravelDetails('trainName', $scope.trainData.name);
+			$railPnrApi.addTravelDetails('trainNo', $scope.trainData.number);
+
+			$scope.doj = new Date();
+
+			$scope.dojString = $dateService.getFormattedDate($scope.doj);
+			$scope.stationSelectable = canSelectStation(currentDate);
+
+
+	/*		$railPnrApi.addTravelDetails('fromStationName', data.from_station.name);
+			$railPnrApi.addTravelDetails('fromStationCode', data.from_station.code);
+			$railPnrApi.addTravelDetails('toStationName', data.to_station.name);
+			$railPnrApi.addTravelDetails('toStationCode', data.to_station.code); */
+
+			//TODO get pnr status of the last passender instead of the fist
+			$railPnrApi.addTravelDetails('pnrStatus', data.passengers[0].current_status);
+
+  			$state.transitionTo("confirmation");
+  			}catch(err){ }
+		}, function(error) {
+  			
+		});
 
 		$scope.responseData = JSON.parse(sampleJson);
 
-		$scope.hasTrainSchedule = true;
-
+		
 	};
 
-})
+
+  //var options = {date: new Date(), mode: 'time'}; for time
+  var defaultDate = new Date();
+  	
+  	$scope.showDatePicker = function(){
+
+  		var options = {date: defaultDate, mode: 'date', minDate: new Date()};
+
+ 		 $cordovaDatePicker.show(options).then(function(date){
+ 		 	try{
+    		  defaultDate = new Date(date);
+    		  $scope.doj = new Date(date);
+    		  $scope.dojString = $dateService.getFormattedDate(date);
+    		  $scope.stationSelectable = canSelectStation($scope.doj);
+    		}catch(err){ alert(err); }
+  		});
+	}
+
+});
