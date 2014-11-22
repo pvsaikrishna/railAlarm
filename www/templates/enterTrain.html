@@ -32,16 +32,16 @@
   	  <div class="input-label">
   	    From Station
   	  </div>
-		<select class="span12" id="actionType" ng-change='enableFields()' ng-required="true" ng-disabled="stationSelectable" ng-model="fromStation" ng-options="route.station.name for route in responseData.train.route">
+		<select class="span12" id="actionType" ng-change='enableFields()' ng-required="true" ng-disabled="!stationSelectable" ng-model="fromStation" ng-options="route.station.name for route in trainData.route">
             
     	</select>
-  	</label>
+  	</label> 
 
   	<label class="item item-input item-select">
   	  <div class="input-label">
   	    To Station
   	  </div>
-		<select class="span12" id="actionType" ng-change='enableFields()' ng-required="true" ng-disabled="stationSelectable" ng-model="toStation" ng-options="route.station.name for route in responseData.train.route">
+		<select class="span12" id="actionType" ng-change='enableFields()' ng-required="true" ng-disabled="!stationSelectable" ng-model="toStation" ng-options="route.station.name for route in trainData.route">
             
     	</select>
   	</label>
@@ -60,7 +60,7 @@
 <br><br><br>
 <button ng-show="!hasTrainSchedule" class="button button-positive pnrNextButton" ng-click="getTrainSchedule()" >Next !</button>
 
-<button ng-show="hasTrainSchedule" class="button button-positive pnrNextButton" >Done !</button>
+<button ng-show="hasTrainSchedule" class="button button-positive pnrNextButton" ng-click="confirmDetails()" >Done !</button>
 
  <button class="button button-clear pnrNextButton button-positive" ng-click="close()">Cancel</button>
 

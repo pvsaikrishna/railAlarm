@@ -20,7 +20,11 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 
 			try{
 
-			var data = JSON.parse(responseData.data);
+			
+			responseData = $railPnrApi.getJSObject(responseData);
+			var data = $railPnrApi.getJSObject(responseData.data);
+
+
 
 			//var data = responseData.data;
 

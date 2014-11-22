@@ -38,32 +38,41 @@ App.service('$dataService', function($cordovaSQLite, $railPnrApi){
 	};
 
 	var getValues = function(){
-		var values = [];
+		var data = {};
 
-		values.push($railPnrApi.travelDetails.pnr);
-		values.push($railPnrApi.travelDetails.doj);
-		values.push($railPnrApi.travelDetails.trainName);
-		values.push($railPnrApi.travelDetails.trainNo);
-		values.push($railPnrApi.travelDetails.fromStationName);
-		values.push($railPnrApi.travelDetails.fromStationCode);
-		values.push($railPnrApi.travelDetails.toStationName);
-		values.push($railPnrApi.travelDetails.toStationCode);
-		values.push($railPnrApi.travelDetails.distanceToAlarm);
-		values.push($railPnrApi.travelDetails.pnrStatus);
-		values.push($railPnrApi.travelDetails.distanceToReach);
+		var fields=[];
+		var values=[]; 
+		var valueReferences = [];
 
-		return values;
+		for(var key in $railPnrApi.travelDetails) { 
+			fields.push(key); 
+			values.push($railPnrApi.travelDetails[key]) 
+			valueReferences.push("?");
+		};
+
+		data['values'] = values;
+		data['fields'] = JSON.stringify(fields).replace("[","(").replace("]",")").replace(new RegExp("\"", 'g'), "'");
+		data['valueReferences'] = JSON.stringify(valueReferences).replace("[","(").replace("]",")").replace(new RegExp("\"", 'g'), "");;
+
+		return data;
 
 	};
 
 	this.saveTravelDetails = function(){
 		//retrieves data from RailPnrService
 
-		var values = getValues();
+		var insertData = getValues();
 
-		var insertQuery = "INSERT INTO travelDetails (pnr, doj, trainName, trainNo, fromStationName, fromStationCode, toStationName, toStationCode, distanceToAlarm, pnrStatus, distanceToReach) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		console.log(JSON.stringify(insertData));
 
-		return executeQuery(insertQuery, values);
+		var insertQuery = "INSERT INTO travelDetails "+ insertData.fields+" VALUES "+ insertData.valueReferences;
+
+
+		console.log(insertQuery);
+
+		//var insertQuery = "INSERT INTO travelDetails (pnr, doj, trainName, trainNo, fromStationName, fromStationCode, toStationName, toStationCode, distanceToAlarm, pnrStatus, distanceToReach) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+
+		return executeQuery(insertQuery, insertData.values);
 	};
 
 	init();
