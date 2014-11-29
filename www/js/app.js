@@ -7,10 +7,13 @@ window.App = angular.module('railTrack', ['ionic','ngCordova']);
 
 window.isAndroid = false;
 
-App.run(function($ionicPlatform, $cordovaLocalNotification) {
+App.run(function($ionicPlatform, $cordovaLocalNotification, $state) {
   $ionicPlatform.ready(function() {
 
     window.isAndroid = ionic.Platform.isAndroid();
+
+    console.log("ionic.Platform.isAndroid() :" + ionic.Platform.isAndroid() );
+    console.log("window.isAndroid : " + ionic.Platform.isAndroid());
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -19,6 +22,10 @@ App.run(function($ionicPlatform, $cordovaLocalNotification) {
     }
     if(window.StatusBar) {
       StatusBar.styleDefault();
+    }
+
+  if(window.isAndroid ){
+      $state.transitionTo("home.details");
     }
   });
 });
@@ -31,6 +38,14 @@ App.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'homeView': {
           templateUrl: 'templates/homeTpl.html'
+        }
+      }
+    })
+ .state('home.details', {
+      url: '/alltravel',
+      views: {
+        'detailsView': {
+          templateUrl: 'templates/allTravelDetailsTpl.html'
         }
       }
     })
@@ -55,6 +70,14 @@ App.config(function($stateProvider, $urlRouterProvider) {
       views: {
         'homeView': {
           templateUrl: 'templates/detailsConfirmation.html'
+        }
+      }
+    })
+  .state('details', {
+      url: '/alltravel',
+      views: {
+        'homeView': {
+          templateUrl: 'templates/allTravelDetailsTpl.html'
         }
       }
     })

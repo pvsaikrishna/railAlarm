@@ -40,9 +40,12 @@
       <script src="js/controllers/enterPNR.js"></script>
       <script src="js/controllers/enterTrain.js"></script>
       <script src="js/controllers/detailsConfirmation.js"></script>
+      <script src="js/controllers/allTravelDetails.js"></script>
 
       
   </head>
+
+
 
   <body ng-controller="HomeController">
     <ion-pane>
@@ -54,8 +57,24 @@
 	<button class="button icon ion-share"></button>
       </ion-header-bar>
       <ion-content>
+
 	<div ui-view="homeView"> </div>
+
       </ion-content>
     </ion-pane>
+
+<!-- <div class="list">
+
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-email col col-50"></i>
+    <span class="col col-50"> Check mail </span>   
+  </a>
+  <a class="item item-icon-left" href="#">
+    <i class="icon ion-email"></i>
+    Check mail
+  </a>
+
+<div> -->
+
   </body>
 </html>

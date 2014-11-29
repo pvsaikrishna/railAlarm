@@ -6,10 +6,15 @@ App.service('$dataService', function($cordovaSQLite, $railPnrApi){
 
 	var dbPointers = {};
 
+	var isAndroid = false;
+
 
 	var executeQuery = function(query, params){
 
-		if(window.isAndroid){
+		console.log(query);
+		console.log(isAndroid)
+
+		if(isAndroid){
 
 			return $cordovaSQLite.execute(db, query, params);
 		}	 		
@@ -17,7 +22,13 @@ App.service('$dataService', function($cordovaSQLite, $railPnrApi){
 
 	var init = function(){
 
-		if(window.isAndroid){
+		try{
+			isAndroid = ionic.Platform.isAndroid();
+		}catch(err){
+			console.log(err);
+		}
+
+		if(isAndroid){
 
 		db =  $cordovaSQLite.openDB("railAlarm.db");
 
@@ -31,10 +42,6 @@ App.service('$dataService', function($cordovaSQLite, $railPnrApi){
 		});
 
 		}
-	};
-
-
-	this.get = function(){
 	};
 
 	var getValues = function(){
@@ -67,13 +74,16 @@ App.service('$dataService', function($cordovaSQLite, $railPnrApi){
 
 		var insertQuery = "INSERT INTO travelDetails "+ insertData.fields+" VALUES "+ insertData.valueReferences;
 
-
-		console.log(insertQuery);
-
 		//var insertQuery = "INSERT INTO travelDetails (pnr, doj, trainName, trainNo, fromStationName, fromStationCode, toStationName, toStationCode, distanceToAlarm, pnrStatus, distanceToReach) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
 		return executeQuery(insertQuery, insertData.values);
 	};
+
+	this.getAllTravelDetails = function(){
+		var query = "SELECT * FROM travelDetails"
+
+		return executeQuery(query);
+	}
 
 	init();
 
