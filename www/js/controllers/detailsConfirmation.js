@@ -7,7 +7,7 @@ App.controller('DetailsConfirmation', function($railPnrApi, $state, $scope, $roo
 	$scope.travelDetails.distanceToAlarm = 20;
 
 	$scope.close = function(){
-		$state.transitionTo("home");
+		$state.transitionTo("home.details");
 	};
 
 	$scope.saveDetails = function(){
@@ -23,7 +23,7 @@ App.controller('DetailsConfirmation', function($railPnrApi, $state, $scope, $roo
  			 }, function (error) {
    			 // error
   			});
-		 $state.transitionTo("home");},
+		 $state.transitionTo("home.details");},
 		 function(error){ });
 	};
 

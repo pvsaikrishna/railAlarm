@@ -1,5 +1,5 @@
 App.controller('AllTravelDetails', function($state, $scope, $rootScope, $dataService){
-	$rootScope.$broadcast("changeTitle", "Confirm Details");
+	$rootScope.$broadcast("changeTitle", "Track my Journey");
 
 
 	$scope.allTravelDetails = [];

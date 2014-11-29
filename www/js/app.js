@@ -7,7 +7,7 @@ window.App = angular.module('railTrack', ['ionic','ngCordova']);
 
 window.isAndroid = false;
 
-App.run(function($ionicPlatform, $cordovaLocalNotification, $state) {
+App.run(function($ionicPlatform, $cordovaLocalNotification, $state, $cordovaNetwork) {
   $ionicPlatform.ready(function() {
 
     window.isAndroid = ionic.Platform.isAndroid();
@@ -26,7 +26,13 @@ App.run(function($ionicPlatform, $cordovaLocalNotification, $state) {
 
   if(window.isAndroid ){
       $state.transitionTo("home.details");
+
+      console.log($cordovaNetwork.getNetwork());
+
+      console.log($cordovaNetwork.isOnline());
     }
+
+
   });
 });
 

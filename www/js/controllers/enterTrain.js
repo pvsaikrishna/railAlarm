@@ -19,7 +19,7 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 	};
 
 	$scope.close = function(){
-		$state.transitionTo("home");
+		$state.transitionTo("home.details");
 	}
 
 

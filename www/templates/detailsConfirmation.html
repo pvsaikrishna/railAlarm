@@ -1,28 +1,32 @@
 <div ng-controller="DetailsConfirmation">
 
-<div class="row">
+<div class="row textCenter">
   <div class="col col-50">Train No</div>
-  <div class="col"> {{travelDetails.trainName}} </div>
+  <div class="col col-50"> {{travelDetails.trainName}} </div>
 </div>
 
-<div class="row">
+<div class="row textCenter">
   <div class="col col-50">Train Name</div>
-  <div class="col"> {{travelDetails.trainNo}} </div>
+  <div class="col col-50"> {{travelDetails.trainNo}} </div>
 </div>
 
-<div class="row">
+<div class="row textCenter">
   <div class="col col-50">From Station</div>
-  <div class="col"> {{travelDetails.fromStationName}} ({{travelDetails.fromStationCode}}) </div>
+  <div class="col col-50"> {{travelDetails.fromStationName}} ({{travelDetails.fromStationCode}}) </div>
 </div>
 
-<div class="row">
-  <div class="col col-50">To Stations</div>
-  <div class="col"> {{travelDetails.toStationName}} ({{travelDetails.toStationCode}}) </div>
+<div class="row textCenter">
+  <div class="col col-50">To Station</div>
+  <div class="col col-50"> {{travelDetails.toStationName}} ({{travelDetails.toStationCode}}) </div>
 </div>
  
- <div>
+ <div class="row">
+ 	<div class="col col-20"></div>
+ <div class="col">
   Notify <input type='number' ng-model="travelDetails.distanceToAlarm" value='20'  class="glowing-border" /> KMs before destination.
 </div>	
+<div class="col col-20"></div>
+</div>
 
 <button class="button button-positive pnrNextButton" ng-click="saveDetails()" >Track Journey !</button>
 <button class="button button-clear pnrNextButton button-positive" ng-click="close()">Cancel</button>

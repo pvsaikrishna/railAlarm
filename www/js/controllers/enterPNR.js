@@ -8,7 +8,7 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 	};
 
 	$scope.close = function(){
-		$state.transitionTo("home");
+		$state.transitionTo("home.details");
 	}
 
 	$scope.getPNRDetails = function(){
