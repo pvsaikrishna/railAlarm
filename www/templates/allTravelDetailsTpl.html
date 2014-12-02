@@ -1,20 +1,43 @@
 <div ng-controller="AllTravelDetails">
 
 
+
+<div ng-show="hasSaveTravels">
+
+<h3 class="title">Saved Travels </h3>
+
 <div class="list">
 
-  <div ng-repeat="travel in allTravelDetails" class="row item item-icon-left" href="#">
+  <!-- <div class="row textCenter backgroundf7f7f7">
+            <div class="col col-33">Date</div>
+            <div class="col col-20">From</div>
+            <div class="col col-20">To</div>
+            <div class="col col">More</div>
+        </div>
+
 
         <div class="row textCenter backgroundf7f7f7">
-            <div class="col col-50">{{travel.doj}}</div>
+            <div class="col col-33">25-Nov-2014</div>
+            <div class="col col-20">SC</div>
+            <div class="col col-20">KZJ</div>
+            <span class="col step size-32">
+                <i class="icon ion-eye "></i>
+            </span>
+        </div> -->
+
+
+
+        <div ng-repeat="travel in allTravelDetails" class="row textCenter backgroundf7f7f7 clear">
+            <div class="col col-33">{{travel.doj}}</div>
             <div class="col col-20">{{travel.fromStationCode}}</div>
             <div class="col col-20">{{travel.toStationCode}}</div>
-            <span class="step size-32">
+            <span class="col step size-32">
                 <i class="icon ion-eye "></i>
             </span>
         </div>
 
-     </div>
+</div>
+
 </div>
 
 </div>

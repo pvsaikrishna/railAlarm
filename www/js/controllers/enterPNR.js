@@ -1,7 +1,18 @@
-App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $cordovaLocalNotification){
+App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $cordovaToast, $cordovaNetwork){
 
 
 	$rootScope.$broadcast("changeTitle", "Enter PNR");
+
+	var init = function(){
+
+		if(!$cordovaNetwork.isOnline()){
+
+          $cordovaToast.showShortTop('Enable internet to fetch PNR details.');
+          $rootScope.goToHome();
+
+      	}
+
+	};
 
 	var parsePNRResponse = function(data){
 		console.log(data);
@@ -47,6 +58,8 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
   			
 		});
 
-	}
+	};
+
+	init();
 
 })

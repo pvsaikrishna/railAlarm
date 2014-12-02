@@ -4,7 +4,7 @@ App.controller('AllTravelDetails', function($state, $scope, $rootScope, $dataSer
 
 	$scope.allTravelDetails = [];
 
-	
+	$scope.hasSaveTravels = false;
 
 	var init = function(){
 
@@ -18,6 +18,10 @@ App.controller('AllTravelDetails', function($state, $scope, $rootScope, $dataSer
 				console.log(res);
 				console.log(JSON.stringify(res));
 
+				if(res.rows.length > 0){
+					$scope.hasSaveTravels = true;
+				}
+				
 				for(var i=0; i<res.rows.length; i++){
 					console.log(JSON.stringify(res.rows.item(i)));
 					$scope.allTravelDetails.push(res.rows.item(i));

@@ -7,13 +7,17 @@ window.App = angular.module('railTrack', ['ionic','ngCordova']);
 
 window.isAndroid = false;
 
-App.run(function($ionicPlatform, $cordovaLocalNotification, $state, $cordovaNetwork) {
+App.run(function($ionicPlatform, $cordovaLocalNotification, $rootScope, $state, $cordovaNetwork, $cordovaToast) {
   $ionicPlatform.ready(function() {
 
     window.isAndroid = ionic.Platform.isAndroid();
 
     console.log("ionic.Platform.isAndroid() :" + ionic.Platform.isAndroid() );
     console.log("window.isAndroid : " + ionic.Platform.isAndroid());
+
+    $rootScope.goToHome = function(){
+      $state.transitionTo("home.details");
+    }
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -25,11 +29,21 @@ App.run(function($ionicPlatform, $cordovaLocalNotification, $state, $cordovaNetw
     }
 
   if(window.isAndroid ){
-      $state.transitionTo("home.details");
+      $rootScope.goToHome();
 
       console.log($cordovaNetwork.getNetwork());
 
       console.log($cordovaNetwork.isOnline());
+
+      if(!$cordovaNetwork.isOnline()){
+
+          $cordovaToast.showShortTop('Please enable internet to leverage all features.').then(function(success) {
+            // success
+            }, function (error) {
+            // error
+            });
+
+      }
     }
 
 

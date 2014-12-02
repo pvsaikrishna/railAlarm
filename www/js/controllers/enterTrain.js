@@ -1,7 +1,18 @@
-App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $cordovaDatePicker, $dateService){
+App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $cordovaDatePicker, $dateService, $cordovaNetwork){
 	$rootScope.$broadcast("changeTitle", "Enter Train Number");
 
- $scope.hasTrainSchedule = false;
+ 	$scope.hasTrainSchedule = false;
+
+ 	var init = function(){
+
+		if(!$cordovaNetwork.isOnline()){
+
+          $cordovaToast.showShortTop('Enable internet to fetch Train details.');
+          $rootScope.goToHome();
+
+      	}
+
+	};
 
 	var canSelectStation = function(date){
 
@@ -101,6 +112,8 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
     		  $scope.stationSelectable = canSelectStation($scope.doj);
     		}catch(err){ alert(err); }
   		});
-	}
+	};
+
+	init();
 
 });
