@@ -93,8 +93,22 @@ button.track{
 
 .textCenter{
   text-align: center;
+  position: relative;
+  top: 7px;
 }
 
 .backgroundf7f7f7{
   background: #f7f7f7
+}
+
+.clearboth{
+  clear: both;
+}
+
+.vertical-align {
+}
+
+.top7{
+  position: relative;
+  top: 7px;
 }

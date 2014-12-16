@@ -1,4 +1,4 @@
-App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $cordovaDatePicker, $dateService, $cordovaNetwork){
+App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $cordovaDatePicker, $dateService, $cordovaNetwork, $cordovaToast){
 	$rootScope.$broadcast("changeTitle", "Enter Train Number");
 
  	$scope.hasTrainSchedule = false;

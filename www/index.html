@@ -54,7 +54,7 @@
 		<button class="button icon ion-home"></button>
 	</a>
 	<h1 class="title"> {{title}}</h1>
-	<button class="button icon ion-share"></button>
+	<button ng-click="openModal()" class="button icon ion-android-more-vertical"></button>
       </ion-header-bar>
       <ion-content>
 
@@ -77,4 +77,22 @@
 <div> -->
 
   </body>
+  <script id="my-modal.html" type="text/ng-template">
+  <ion-modal-view>
+/*    <ion-header-bar>
+      <h1 class="title">My Modal title</h1>
+    </ion-header-bar>*/
+    <ion-content>
+      <button class="button button-full icon-left ion-information button-dark">
+        About
+      </button>
+      <button class="button button-full icon-left ion-coffee button-dark">
+        Feedback
+      </button>
+       <button class="button button-full icon-left ion-android-share-alt button-dark">
+        Share
+      </button>
+    </ion-content>
+  </ion-modal-view>
+</script>
 </html>

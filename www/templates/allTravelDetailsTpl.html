@@ -1,4 +1,4 @@
-<div ng-controller="AllTravelDetails">
+<div >
 
 
 
@@ -8,18 +8,18 @@
 
 <div class="list">
 
-  <!-- <div class="row textCenter backgroundf7f7f7">
+  <div class="row textCenter backgroundf7f7f7">
             <div class="col col-33">Date</div>
             <div class="col col-20">From</div>
             <div class="col col-20">To</div>
-            <div class="col col">More</div>
+            <div class="col">More</div>
         </div>
 
 
-        <div class="row textCenter backgroundf7f7f7">
-            <div class="col col-33">25-Nov-2014</div>
-            <div class="col col-20">SC</div>
-            <div class="col col-20">KZJ</div>
+      <!--   <div class="row textCenter backgroundf7f7f7">
+            <div class="col col-33 top7">25-Nov-2014</div>
+            <div class="col col-20 top7">SC</div>
+            <div class="col col-20 top7">KZJ</div>
             <span class="col step size-32">
                 <i class="icon ion-eye "></i>
             </span>
@@ -27,10 +27,10 @@
 
 
 
-        <div ng-repeat="travel in allTravelDetails" class="row textCenter backgroundf7f7f7 clear">
-            <div class="col col-33">{{travel.doj}}</div>
-            <div class="col col-20">{{travel.fromStationCode}}</div>
-            <div class="col col-20">{{travel.toStationCode}}</div>
+        <div ng-repeat="travel in allTravelDetails" class="row textCenter backgroundf7f7f7 clearboth">
+            <div class="col col-33 top7">{{travel.doj}}</div>
+            <div class="col col-20 top7">{{travel.fromStationCode}}</div>
+            <div class="col col-20 top7">{{travel.toStationCode}}</div>
             <span class="col step size-32">
                 <i class="icon ion-eye "></i>
             </span>
