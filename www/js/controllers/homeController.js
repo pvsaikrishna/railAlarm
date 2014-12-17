@@ -19,7 +19,7 @@ App.controller('HomeController', function($ionicPlatform, $railPnrApi, $scope, $
 	$rootScope.$broadcast("changeTitle", "Track my Journey");
 
 
-	$ionicModal.fromTemplateUrl('my-modal.html', {
+	$ionicModal.fromTemplateUrl('templates/moreDetails.html', {
     scope: $scope,
     animation: 'slide-in-up'
   }).then(function(modal) {

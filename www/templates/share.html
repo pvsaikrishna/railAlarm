@@ -1,0 +1,15 @@
+<div ng-controller="ShareController">
+
+<div class="list">
+
+	 <label class="item item-input item-floating-label">
+	 <span class="input-label">Share with {{type}}</span>
+     <textarea placeholder="Share with {{type}}" ng-model="shareText"></textarea>
+     </label>
+
+</div>
+
+	<button class="button button-positive pnrNextButton" ng-click="share()" >Share</button>
+	<button class="button button-clear pnrNextButton button-positive" ng-click="close()">Cancel</button>
+
+</div>

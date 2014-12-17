@@ -11,3 +11,4 @@ cordova plugin add https://github.com/apache/cordova-plugin-statusbar.git
 cordova plugin add https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git
 cordova plugin add https://github.com/apache/cordova-plugin-network-information.git
 cordova plugin add https://github.com/floatinghotpot/cordova-admob-pro.git
+cordova plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git

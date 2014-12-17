@@ -125,6 +125,22 @@ App.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('shareWith', {
+      url: '/shareWith',
+      views: {
+        'homeView': {
+          templateUrl: 'templates/shareWith.html'
+        }
+      }
+    })
+    .state('share', {
+      url: '/share/:type',
+      views: {
+        'homeView': {
+          templateUrl: 'templates/share.html'
+        }
+      }
+    })
 ;
 
 
