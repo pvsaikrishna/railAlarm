@@ -1,4 +1,4 @@
-App.controller('HomeController', function($railPnrApi, $scope, $rootScope,  $ionicModal){
+App.controller('HomeController', function($railPnrApi, $scope, $rootScope,  $ionicModal, $state){
 
 	$scope.title = 'Track my Journey';
 
@@ -35,6 +35,13 @@ App.controller('HomeController', function($railPnrApi, $scope, $rootScope,  $ion
   $scope.$on('modal.removed', function() {
     // Execute action
   });
+
+  $scope.open = function(state){
+    $scope.closeModal();
+
+    //what ever state parameter is passed.
+    $state.transitionTo(state);
+  }
 
 
 });

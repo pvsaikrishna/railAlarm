@@ -101,6 +101,22 @@ App.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+   .state('about', {
+      url: '/about',
+      views: {
+        'homeView': {
+          templateUrl: 'templates/about.html'
+        }
+      }
+    })
+    .state('feedback', {
+      url: '/feedback',
+      views: {
+        'homeView': {
+          templateUrl: 'templates/feedback.html'
+        }
+      }
+    })
 ;
 
 
