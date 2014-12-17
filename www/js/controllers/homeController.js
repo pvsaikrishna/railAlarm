@@ -1,4 +1,13 @@
-App.controller('HomeController', function($railPnrApi, $scope, $rootScope,  $ionicModal, $state){
+App.controller('HomeController', function($ionicPlatform, $railPnrApi, $scope, $rootScope,  $ionicModal, $state ){
+
+  $ionicPlatform.ready(function() {
+    if(AdMob) AdMob.createBanner( {
+    adId:window.ad_units.android.banner, 
+    adSize:'BANNER', 
+    overlap:true, 
+    position:AdMob.AD_POSITION.BOTTOM_CENTER, 
+    autoShow:true} );
+  });
 
 	$scope.title = 'Track my Journey';
 
@@ -42,6 +51,9 @@ App.controller('HomeController', function($railPnrApi, $scope, $rootScope,  $ion
     //what ever state parameter is passed.
     $state.transitionTo(state);
   }
+
+
+
 
 
 });

@@ -7,6 +7,14 @@ window.App = angular.module('railTrack', ['ionic','ngCordova']);
 
 window.isAndroid = false;
 
+window.ad_units = {
+    
+      android : {
+           banner: 'ca-app-pub-2712795411006242/4035709753', // or DFP format "/6253334/dfp_example_ad"
+           interstitial: 'ca-app-pub-2712795411006242/2558976553'
+        }
+  };
+
 App.run(function($ionicPlatform, $cordovaLocalNotification, $rootScope, $state, $cordovaNetwork, $cordovaToast) {
   $ionicPlatform.ready(function() {
 
