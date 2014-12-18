@@ -77,6 +77,14 @@ App.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+ .state('travelDetails', {
+      url: '/travelDetails/:id',
+      views: {
+        'homeView': {
+          templateUrl: 'templates/travelDetails.html'
+        }
+      }
+    })
  .state('pnr', {
       url: '/pnr',
       views: {
@@ -102,7 +110,7 @@ App.config(function($stateProvider, $urlRouterProvider) {
       }
     })
   .state('details', {
-      url: '/alltravel',
+      url: '/travels',
       views: {
         'homeView': {
           templateUrl: 'templates/allTravelDetailsTpl.html'

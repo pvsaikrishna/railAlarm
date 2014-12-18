@@ -9,6 +9,11 @@ App.controller('HomeController', function($ionicPlatform, $railPnrApi, $scope, $
     autoShow:true} );
   });
 
+
+  $rootScope.goToHome = function(){
+      $state.transitionTo("home.details");
+  };
+
 	$scope.title = 'Track my Journey';
 
 

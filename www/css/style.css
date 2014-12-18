@@ -47,6 +47,11 @@ button.track{
 	left: 40%;
 }
 
+.buttonCenter{
+  position: relative;
+  left: 50%;
+}
+
 .glowing-border {
     display: inline !important;   width: 40px !important;    padding-left: 1px !important; padding-bottom: 4px !important; border: 2px solid #dadada !important; border-radius: 7px !important;
 }

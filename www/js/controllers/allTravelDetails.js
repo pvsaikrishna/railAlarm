@@ -36,7 +36,7 @@ App.controller('AllTravelDetails', function($state, $scope, $rootScope, $dataSer
 
 	$scope.showDetails = function(id){
 		console.log('in showDetails : ' +id);
-		$state.transitionTo("confirmation");
+		$state.transitionTo("travelDetails", {id:id});
 	}
 
 	init();

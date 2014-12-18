@@ -83,7 +83,64 @@ App.service('$dataService', function($cordovaSQLite, $railPnrApi){
 		var query = "SELECT * FROM travelDetails"
 
 		return executeQuery(query);
+	};
+
+
+	var getWhereClause = function(criteria, booleanType){
+
+		var selectQuery = "";
+
+		if(typeof criteria != 'undefined'){
+			selectQuery =  " where ";
+
+			var count = 0;
+
+			for(var key in criteria) {
+				count++;
+			}
+
+			for(var key in criteria) {
+				count--;
+
+				selectQuery = selectQuery + key + " = '" + criteria[key] +"' ";
+
+				if(count > 0) {
+					selectQuery = selectQuery + " " + booleanType;
+				}
+			}
+		}
+
+		return selectQuery;
+
 	}
+
+
+	/*
+		tableName -- String : Name of the table to query on.
+		criteria -- Map : Consists of column label and value to search
+		booleanType -- String : should be either OR | AND
+	*/
+	this.getResults = function(tableName, criteria, booleanType){
+		var selectQuery = "select * from "+tableName;
+
+		selectQuery = selectQuery + getWhereClause(criteria, booleanType);
+
+		return executeQuery(selectQuery);
+	};
+
+	/*
+		tableName -- String : Name of the table to query on.
+		criteria -- Map : Consists of column label and value to search
+		booleanType -- String : should be either OR | AND
+	*/
+	this.deleteRecords = function(tableName, criteria, booleanType){
+		var selectQuery = "delete from "+tableName;
+
+		selectQuery = selectQuery + getWhereClause(criteria, booleanType);
+
+		return executeQuery(selectQuery);
+	};
+
 
 	init();
 
