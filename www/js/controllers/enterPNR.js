@@ -22,6 +22,40 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 		$state.transitionTo("home.details");
 	}
 
+	$scope.fetchstationCoOrdinates = function(stationCode){
+
+		console.log('entered fetchstationCoOrdinates');
+
+		var promise = $railPnrApi.getStationByCode(stationCode);
+
+		promise.then(function(responseData) {
+
+			try{ 
+
+				responseData = $railPnrApi.getJSObject(responseData);
+
+				console.log(JSON.stringify(responseData));
+
+				var data = $railPnrApi.getJSObject(responseData.data);
+
+				var stations = $railPnrApi.getJSObject(data.stations);
+				
+
+				if(stations.length >= 1){
+					var location = $railPnrApi.getJSObject(data.stations[0].location);
+					$railPnrApi.addTravelDetails('toStationLatLog', location.lat + ':' + location.lng);
+
+		  			$state.transitionTo("confirmation");
+
+				}
+
+			}catch(error){ console.log(error)}
+		}, function(error){
+
+		});
+	};
+
+
 	$scope.getPNRDetails = function(){
 
 		var promise = $railPnrApi.getPnrStatus($scope.pnr);
@@ -49,13 +83,12 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 			$railPnrApi.addTravelDetails('toStationCode', data.to_station.code);
 			$railPnrApi.addTravelDetails('trainName', data.train_name);
 			$railPnrApi.addTravelDetails('trainNo', data.train_num);
-			//TODO get pnr status of the last passender instead of the fist
-			$railPnrApi.addTravelDetails('pnrStatus', data.passengers[0].current_status);
+			
+			$scope.fetchstationCoOrdinates(data.to_station.code);
 
-  			$state.transitionTo("confirmation");
-  			}catch(err){ }
+  			}catch(err){ console.log(err); }
 		}, function(error) {
-  			
+  			console.log(error)
 		});
 
 	};

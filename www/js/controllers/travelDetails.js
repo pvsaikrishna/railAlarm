@@ -1,4 +1,4 @@
-App.controller('TravelDetails', function($state, $scope, $rootScope, $dataService, $stateParams, $cordovaToast){
+App.controller('TravelDetails', function($state, $scope, $rootScope, $dataService, $stateParams, $cordovaToast, $cordovaGeolocation){
 	$rootScope.$broadcast("changeTitle", "Track my Journey");
 
 
@@ -32,6 +32,20 @@ App.controller('TravelDetails', function($state, $scope, $rootScope, $dataServic
 
 		});		
 	};
-	
+
+	$scope.trackTravel = function(){
+
+		var geo_options = { maximumAge: 3000, timeout: 5000, enableHighAccuracy: false };
+
+
+		var promise = $cordovaGeolocation.getCurrentPosition(geo_options);
+
+		promise.then( function(location){
+			alert(JSON.stringify(location));
+		}, function(error){
+			alert(error);
+		})
+
+	};
 
 })

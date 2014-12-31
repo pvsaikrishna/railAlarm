@@ -65,11 +65,6 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 			$scope.stationSelectable = canSelectStation($scope.doj);
 
 
-	/*		$railPnrApi.addTravelDetails('fromStationName', data.from_station.name);
-			$railPnrApi.addTravelDetails('fromStationCode', data.from_station.code);
-			$railPnrApi.addTravelDetails('toStationName', data.to_station.name);
-			$railPnrApi.addTravelDetails('toStationCode', data.to_station.code); */
-
   			}catch(err){ alert(err) }
 		}, function(error) {
   			console.log(error);
@@ -85,7 +80,8 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 			$railPnrApi.addTravelDetails('doj', $scope.dojString);
 			$railPnrApi.addTravelDetails('fromStationName', $scope.fromStation.station.name);
 			$railPnrApi.addTravelDetails('fromStationCode', $scope.fromStation.station.code);
-			$railPnrApi.addTravelDetails('fromStationLatLog', $scope.fromStation.station.location.lat + ':' + $scope.fromStation.station.location.lng);
+			//not required now
+			//$railPnrApi.addTravelDetails('fromStationLatLog', $scope.fromStation.station.location.lat + ':' + $scope.fromStation.station.location.lng);
 			
 			$railPnrApi.addTravelDetails('toStationName', $scope.toStation.station.name);
 			$railPnrApi.addTravelDetails('toStationCode', $scope.toStation.station.code);

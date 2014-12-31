@@ -32,7 +32,7 @@ App.service('$dataService', function($cordovaSQLite, $railPnrApi){
 
 		db =  $cordovaSQLite.openDB("railAlarm.db");
 
-		var createTableQuery = 'CREATE TABLE IF NOT EXISTS travelDetails (id integer primary key, pnr text, doj text, trainName text, trainNo text, fromStationName text, fromStationCode text, toStationName text, toStationCode text, distanceToAlarm integer, pnrStatus text,  distanceToReach integer, fromStationLatLog text, toStationLatLog text)';
+		var createTableQuery = 'CREATE TABLE IF NOT EXISTS travelDetails (id integer primary key, pnr text, doj text, trainName text, trainNo text, fromStationName text, fromStationCode text, toStationName text, toStationCode text, distanceToAlarm integer, toStationLatLog text, tracking integer)';
 
 		var promise = executeQuery(createTableQuery);
 

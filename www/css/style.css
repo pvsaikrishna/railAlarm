@@ -117,3 +117,9 @@ button.track{
   position: relative;
   top: 7px;
 }
+
+.shareTextPadding{
+  padding-bottom: 15px !important;
+  font-style: oblique;
+  font-weight: bold;
+}

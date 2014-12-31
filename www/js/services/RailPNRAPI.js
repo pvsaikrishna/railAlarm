@@ -76,6 +76,29 @@ App.service('$railPnrApi', function($http, $httpService){
 		var url = baseUrl+"route/train/"+trainNo+"/format/json/pbapikey/"+_public_token+"/pbapisign/"+hmacSignature; 
 
 		return $httpService.get(url);
-	}
+	};
+
+	this.getStationByCode = function(stationCode){
+
+		stationCode = 'CNB'; //only CNB for test accounts
+
+		/*
+			params : code, partial, format,pbapikey
+	
+			sorted order = code,format,partial,pbapikey
+
+			partial : If 1 is passed, partial code matching is used. If 0 is passed, exact code matching is used.
+		*/
+
+		var hmacText = stationCode+'json'+'0'+_public_token;
+		hmacText = hmacText.toLowerCase();
+
+		var hmacSignature = getHMACSignature(hmacText);	
+
+		var url = baseUrl+"station_by_code/code/"+stationCode+"/partial/0/format/json/pbapikey/"+_public_token+"/pbapisign/"+hmacSignature; 
+
+
+		return $httpService.get(url);
+	};
 
 });
