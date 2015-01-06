@@ -1,4 +1,4 @@
-App.controller('ShareController', function($state, $scope, $rootScope, $state, $stateParams, $cordovaToast, $cordovaSocialSharing){
+App.controller('ShareController', function($state, $scope, $rootScope, $state, $stateParams, $utils, $cordovaSocialSharing){
 
 
 	var type = $stateParams.type;
@@ -29,10 +29,10 @@ App.controller('ShareController', function($state, $scope, $rootScope, $state, $
 		}
 
 		promise.then(function(result) {
-    		 $cordovaToast.showShortTop('Thanks for sharing with '+type+' :)');
+    		 $utils.showToast('Thanks for sharing with '+type+' :)');
     		 $scope.close();
   		 }, function(err) {
-     		 $cordovaToast.showLongTop('Sorry :(, you need '+type+' installed in your device to share');
+     		 $utils.showToast('Sorry :(, you need '+type+' installed in your device to share');
     	});
 
 	};

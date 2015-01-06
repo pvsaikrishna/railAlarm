@@ -45,7 +45,7 @@ App.run(function($ionicPlatform, $cordovaLocalNotification, $rootScope, $state, 
 
       if(!$cordovaNetwork.isOnline()){
 
-          $cordovaToast.showShortTop('Please enable internet to leverage all features.').then(function(success) {
+          $cordovaToast.showShortCenter('Please enable internet to leverage all features.').then(function(success) {
             // success
             }, function (error) {
             // error

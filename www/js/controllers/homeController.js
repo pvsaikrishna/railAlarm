@@ -1,4 +1,4 @@
-App.controller('HomeController', function($ionicPlatform, $railPnrApi, $scope, $rootScope,  $ionicModal, $state, $ionicPopup){
+App.controller('HomeController', function($ionicPlatform, $railPnrApi, $scope, $rootScope,  $ionicModal, $state){
 
     $ionicPlatform.ready(function() {
     if(AdMob) AdMob.createBanner( {
@@ -8,23 +8,6 @@ App.controller('HomeController', function($ionicPlatform, $railPnrApi, $scope, $
     position:AdMob.AD_POSITION.BOTTOM_CENTER,
     autoShow:true} );
   });
-
-
-
-  $rootScope.goToHome = function(){
-      $state.transitionTo("home.details");
-  };
-
-   // An alert dialog
-  $rootScope.showAlert = function(message) {
-   var alertPopup = $ionicPopup.alert({
-     title: 'Error :(',
-     template: message
-   });
-   alertPopup.then(function(res) {
-     $rootScope.goToHome();
-   });
-  };
 
 
 	$scope.title = 'Track my Journey';

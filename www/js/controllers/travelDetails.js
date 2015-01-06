@@ -1,4 +1,4 @@
-App.controller('TravelDetails', function($state, $scope, $rootScope, $dataService, $stateParams, $cordovaToast, $cordovaGeolocation){
+App.controller('TravelDetails', function($state, $scope, $rootScope, $dataService, $stateParams, $utils, $cordovaGeolocation){
 	$rootScope.$broadcast("changeTitle", "Track my Journey");
 
 
@@ -25,9 +25,10 @@ App.controller('TravelDetails', function($state, $scope, $rootScope, $dataServic
 
 		deletePromise.then(function(res){
 
-			$cordovaToast.showShortTop('Deleted successfully');
-			$rootScope.goToHome();
-
+			$utils.showToast('Deleted successfully');
+		
+		    $utils.goToHome();
+		    
 		},function(error){
 
 		});		

@@ -1,4 +1,4 @@
-App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $cordovaToast, $cordovaNetwork, $ionicPopup){
+App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $cordovaNetwork, $utils){
 
 
 	$rootScope.$broadcast("changeTitle", "Enter PNR");
@@ -7,8 +7,9 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 
 		if(!$cordovaNetwork.isOnline()){
 
-          $cordovaToast.showShortTop('Enable internet to fetch PNR details.');
-          $rootScope.goToHome();
+          $utils.showToast('Enable internet to fetch PNR details.');
+		
+		  $utils.goToHome();
 
       	}
 
@@ -19,7 +20,7 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 	};
 
 	$scope.close = function(){
-		$state.transitionTo("home.details");
+		$utils.goToHome();
 	}
 
 	$scope.fetchstationCoOrdinates = function(fromStationCode, toStationCode, trainNo){
@@ -105,7 +106,7 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 			var data = $railPnrApi.getJSObject(responseData.data);
 
 			if(data.error != null){
-				$rootScope.showAlert(data.error);
+				$utils.showAlert(data.error);
 				return;
 			}
 

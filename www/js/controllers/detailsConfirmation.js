@@ -1,4 +1,4 @@
-App.controller('DetailsConfirmation', function($railPnrApi, $state, $scope, $rootScope, $dataService, $cordovaToast){
+App.controller('DetailsConfirmation', function($railPnrApi, $state, $scope, $rootScope, $dataService, $utils){
 	$rootScope.$broadcast("changeTitle", "Confirm Details");
 
 
@@ -7,7 +7,7 @@ App.controller('DetailsConfirmation', function($railPnrApi, $state, $scope, $roo
 	$scope.travelDetails.distanceToAlarm = 20;
 
 	$scope.close = function(){
-		$state.transitionTo("home.details");
+		$utils.goToHome();
 	};
 
 	$scope.saveDetails = function(){
@@ -18,12 +18,10 @@ App.controller('DetailsConfirmation', function($railPnrApi, $state, $scope, $roo
 		var promise = $dataService.saveTravelDetails();
 
 		promise.then(function(res){ 
-			$cordovaToast.showShortTop('Saved travel details.').then(function(success) {
-    			// success
- 			 }, function (error) {
-   			 // error
-  			});
-		 $state.transitionTo("home.details");},
+			$utils.showToast('Saved travel details.');
+		
+		    $utils.goToHome();
+		},
 		 function(error){ });
 	};
 

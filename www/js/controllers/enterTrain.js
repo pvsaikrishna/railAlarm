@@ -1,4 +1,6 @@
-App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $cordovaDatePicker, $dateService, $cordovaNetwork, $cordovaToast, $ionicPopup){
+App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $cordovaDatePicker, $dateService,
+    $cordovaNetwork){
+	
 	$rootScope.$broadcast("changeTitle", "Enter Train Number");
 
  	$scope.hasTrainSchedule = false;
@@ -7,8 +9,9 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 
 		if(!$cordovaNetwork.isOnline()){
 
-          $cordovaToast.showShortTop('Enable internet to fetch Train details.');
-          $rootScope.goToHome();
+          $utils.showToast('Enable internet to fetch Train details.');
+		
+		  $utils.goToHome();
 
       	}
 
@@ -30,7 +33,7 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 	};
 
 	$scope.close = function(){
-		$state.transitionTo("home.details");
+		$utils.goToHome();
 	}
 
 
@@ -52,8 +55,8 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 			var data = $railPnrApi.getJSObject(responseData.data);
 
 			if(typeof data.msg != 'undefined'){
-				$rootScope.showAlert(data.msg);
-				$rootScope.goToHome();
+				$utils.showAlert(data.msg);
+				$utils.goToHome();
 				return;
 			}
 
