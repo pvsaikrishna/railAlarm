@@ -1,18 +1,31 @@
-App.controller('HomeController', function($ionicPlatform, $railPnrApi, $scope, $rootScope,  $ionicModal, $state ){
+App.controller('HomeController', function($ionicPlatform, $railPnrApi, $scope, $rootScope,  $ionicModal, $state, $ionicPopup){
 
-  $ionicPlatform.ready(function() {
+    $ionicPlatform.ready(function() {
     if(AdMob) AdMob.createBanner( {
-    adId:window.ad_units.android.banner, 
-    adSize:'BANNER', 
-    overlap:true, 
-    position:AdMob.AD_POSITION.BOTTOM_CENTER, 
+    adId:window.ad_units.android.banner,
+    adSize:'BANNER',
+    overlap:false,
+    position:AdMob.AD_POSITION.BOTTOM_CENTER,
     autoShow:true} );
   });
+
 
 
   $rootScope.goToHome = function(){
       $state.transitionTo("home.details");
   };
+
+   // An alert dialog
+  $rootScope.showAlert = function(message) {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Error :(',
+     template: message
+   });
+   alertPopup.then(function(res) {
+     $rootScope.goToHome();
+   });
+  };
+
 
 	$scope.title = 'Track my Journey';
 

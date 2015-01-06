@@ -2,7 +2,7 @@
 
 App.service('$railPnrApi', function($http, $httpService){
 
-	var baseUrl = "http://railpnrapi.com/test/";
+	var baseUrl = "http://railpnrapi.com/api/";
 
 	var _public_token = "23d71e07a273ca43c565000418dd7867";
 	var _private_token = "c8bf74082eea9bc309fafe24f5fd402e";
@@ -17,6 +17,10 @@ App.service('$railPnrApi', function($http, $httpService){
 
 	this.addTravelDetails = function(key, value){
 		self.travelDetails[key] = value;
+	};
+
+	this.getTravelDetails = function(key){
+		return self.travelDetails[key];
 	}
 
 
@@ -79,8 +83,6 @@ App.service('$railPnrApi', function($http, $httpService){
 	};
 
 	this.getStationByCode = function(stationCode){
-
-		stationCode = 'CNB'; //only CNB for test accounts
 
 		/*
 			params : code, partial, format,pbapikey

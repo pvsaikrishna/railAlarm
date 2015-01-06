@@ -1,4 +1,4 @@
-App.controller('AllTravelDetails', function($state, $scope, $rootScope, $dataService){
+App.controller('AllTravelDetails', function($state, $scope, $rootScope, $dataService, $dateService){
 	$rootScope.$broadcast("changeTitle", "Track my Journey");
 
 
@@ -40,5 +40,11 @@ App.controller('AllTravelDetails', function($state, $scope, $rootScope, $dataSer
 	}
 
 	init();
+
+	$scope.getFormattedDate = function(time){
+		var date = new Date(time);
+
+		return $dateService.getFormattedDate(date);
+	};
 
 })

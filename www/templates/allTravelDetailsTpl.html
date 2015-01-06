@@ -44,7 +44,7 @@
 
 
         <div ng-repeat="travel in allTravelDetails" ng-click="showDetails({{travel.id}})" class="row textCenter backgroundf7f7f7 clearboth">
-            <div class="col col-33 top7">{{travel.doj}}</div>
+            <div class="col col-33 top7">{{getFormattedDate(travel.doj)}}</div>
             <div class="col col-20 top7">{{travel.fromStationCode}}</div>
             <div class="col col-20 top7">{{travel.toStationCode}}</div>
             <span class="col step size-32">

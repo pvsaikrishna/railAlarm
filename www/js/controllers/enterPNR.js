@@ -1,4 +1,4 @@
-App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $cordovaToast, $cordovaNetwork){
+App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $cordovaToast, $cordovaNetwork, $ionicPopup){
 
 
 	$rootScope.$broadcast("changeTitle", "Enter PNR");
@@ -22,37 +22,72 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 		$state.transitionTo("home.details");
 	}
 
-	$scope.fetchstationCoOrdinates = function(stationCode){
+	$scope.fetchstationCoOrdinates = function(fromStationCode, toStationCode, trainNo){
 
 		console.log('entered fetchstationCoOrdinates');
 
-		var promise = $railPnrApi.getStationByCode(stationCode);
+		var promise = $railPnrApi.getTrainSchedule(trainNo);
+
 
 		promise.then(function(responseData) {
 
-			try{ 
+			try{
 
-				responseData = $railPnrApi.getJSObject(responseData);
+			
+			responseData = $railPnrApi.getJSObject(responseData);
+			var data = $railPnrApi.getJSObject(responseData.data);
+			var trainData = $railPnrApi.getJSObject(data.train);
+			
+			var date = new Date();
 
-				console.log(JSON.stringify(responseData));
+			try{
+				var dojString = $railPnrApi.getTravelDetails('doj');
 
-				var data = $railPnrApi.getJSObject(responseData.data);
+				var fields = dojString.split("-");
 
-				var stations = $railPnrApi.getJSObject(data.stations);
-				
-
-				if(stations.length >= 1){
-					var location = $railPnrApi.getJSObject(data.stations[0].location);
-					$railPnrApi.addTravelDetails('toStationLatLog', location.lat + ':' + location.lng);
-
-		  			$state.transitionTo("confirmation");
-
+				if(fields[0].length == 4){
+					//2015-01-26
+					date.setYear(parseInt(fields[0]));
+					date.setMonth(parseInt(fields[1])-1);
+					date.setDate(parseInt(fields[2]));
+				} else {
+					//23-12-2013
+					date.setDate(parseInt(fields[0]));
+					date.setMonth(parseInt(fields[1])-1);
+					date.setYear(parseInt(fields[2]));
 				}
+			}catch(err){}
 
-			}catch(error){ console.log(error)}
-		}, function(error){
+			var route = trainData.route;
 
+			for(key in route){ 
+ 			  console.log(route[key]);
+   				if(route[key].station.code == fromStationCode){
+   					//store time
+   					try{
+   						var fields = route[0].departure_time.split(":");
+						date.setHours(parseInt(fields[0]));
+						date.setMinutes(parseInt(fields[1]));
+					}catch(error){}
+   				}else if(route[key].station.code == toStationCode){
+   					//store lat long
+   					try{
+   						var location = $railPnrApi.getJSObject(route[key].station.location);
+   						console.log(location);
+   						$railPnrApi.addTravelDetails('toStationLatLog', location.lat + ':' + location.lng);
+   					}catch(error){}
+   				}
+			}
+
+			$railPnrApi.addTravelDetails('doj', date.getTime());
+
+			$state.transitionTo("confirmation");
+
+  			}catch(err){ alert(err) }
+		}, function(error) {
+  			console.log(error);
 		});
+
 	};
 
 
@@ -69,6 +104,11 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 			responseData = $railPnrApi.getJSObject(responseData);
 			var data = $railPnrApi.getJSObject(responseData.data);
 
+			if(data.error != null){
+				$rootScope.showAlert(data.error);
+				return;
+			}
+
 
 
 			//var data = responseData.data;
@@ -84,7 +124,7 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 			$railPnrApi.addTravelDetails('trainName', data.train_name);
 			$railPnrApi.addTravelDetails('trainNo', data.train_num);
 			
-			$scope.fetchstationCoOrdinates(data.to_station.code);
+			$scope.fetchstationCoOrdinates(data.to_station.code, data.from_station.code, data.train_num);
 
   			}catch(err){ console.log(err); }
 		}, function(error) {

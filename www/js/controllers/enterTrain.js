@@ -1,4 +1,4 @@
-App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $cordovaDatePicker, $dateService, $cordovaNetwork, $cordovaToast){
+App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $cordovaDatePicker, $dateService, $cordovaNetwork, $cordovaToast, $ionicPopup){
 	$rootScope.$broadcast("changeTitle", "Enter Train Number");
 
  	$scope.hasTrainSchedule = false;
@@ -51,6 +51,12 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 
 			var data = $railPnrApi.getJSObject(responseData.data);
 
+			if(typeof data.msg != 'undefined'){
+				$rootScope.showAlert(data.msg);
+				$rootScope.goToHome();
+				return;
+			}
+
 			$scope.trainData = $railPnrApi.getJSObject(data.train);
 			
 
@@ -77,15 +83,29 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 
 	$scope.confirmDetails = function(){
 
-			$railPnrApi.addTravelDetails('doj', $scope.dojString);
 			$railPnrApi.addTravelDetails('fromStationName', $scope.fromStation.station.name);
 			$railPnrApi.addTravelDetails('fromStationCode', $scope.fromStation.station.code);
+
+			//get time
+			// "departure_time": "06:15",
+
+			try{
+				var fields = $scope.fromStation.departure_time.split(":");
+				$scope.doj.setHours(parseInt(fields[0]));
+				$scope.doj.setMinutes(parseInt(fields[1]));
+			}catch(error){
+
+			}
+
 			//not required now
 			//$railPnrApi.addTravelDetails('fromStationLatLog', $scope.fromStation.station.location.lat + ':' + $scope.fromStation.station.location.lng);
 			
 			$railPnrApi.addTravelDetails('toStationName', $scope.toStation.station.name);
 			$railPnrApi.addTravelDetails('toStationCode', $scope.toStation.station.code);
 			$railPnrApi.addTravelDetails('toStationLatLog', $scope.toStation.station.location.lat + ':' + $scope.toStation.station.location.lng);
+
+			$railPnrApi.addTravelDetails('doj', $scope.doj.getTime());
+
 
 			$state.transitionTo("confirmation");
 
