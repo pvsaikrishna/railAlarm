@@ -27,6 +27,14 @@ App.run(function($ionicPlatform, $cordovaLocalNotification, $rootScope, $state, 
       $state.transitionTo("home.details");
     }
 
+/*
+    $ionicPlatform.registerBackButtonAction(function(){
+      alert('hi')
+      alert($state.current.name);
+    }, 11);
+*/
+
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {

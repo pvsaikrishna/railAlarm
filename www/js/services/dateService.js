@@ -17,6 +17,11 @@ App.service('$dateService', function($cordovaSQLite, $railPnrApi){
 		return curr_date + "-" + m_names[curr_month] + "-" + curr_year;
 	};
 
+	this.getDate = function(time){
+		time = parseInt(time);
+		return new Date(time);
+	}
+
 	this.getFormattedDay = function(date){
 		return d_name[date.getDay()];
 	}

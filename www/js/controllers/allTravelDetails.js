@@ -2,11 +2,12 @@ App.controller('AllTravelDetails', function($state, $scope, $rootScope, $dataSer
 	$rootScope.$broadcast("changeTitle", "Track my Journey");
 
 
-	$scope.allTravelDetails = [];
+	//$scope.allTravelDetails = [];
 
 	$scope.hasSaveTravels = false;
 
 	var init = function(){
+
 
 		//get travel details and set it to scope.
 
@@ -21,12 +22,13 @@ App.controller('AllTravelDetails', function($state, $scope, $rootScope, $dataSer
 				if(res.rows.length > 0){
 					$scope.hasSaveTravels = true;
 				}
-				
+				var tempDetails = [];
 				for(var i=0; i<res.rows.length; i++){
 					console.log(JSON.stringify(res.rows.item(i)));
-					$scope.allTravelDetails.push(res.rows.item(i));
+					tempDetails.push(res.rows.item(i));
 				}
 
+				$scope.allTravelDetails = tempDetails;
 				
 
  			}, function (error) {
@@ -41,9 +43,8 @@ App.controller('AllTravelDetails', function($state, $scope, $rootScope, $dataSer
 
 	init();
 
-	$scope.getFormattedDate = function(time){
-		var date = new Date(time);
-
+	$scope.getFormattedDate = function(time, index){
+		var date = $dateService.getDate(time);
 		return $dateService.getFormattedDate(date);
 	};
 
