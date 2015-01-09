@@ -56,7 +56,6 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 
 			if(typeof data.msg != 'undefined'){
 				$utils.showAlert(data.msg);
-				$utils.goToHome();
 				return;
 			}
 

@@ -57,12 +57,27 @@
 
 </div>
 
-<br><br>
-<button ng-show="!hasTrainSchedule" class="button button-positive buttonCenter" ng-click="getTrainSchedule()" >Next !</button>
+<!-- <button ng-show="!hasTrainSchedule" class="button button-positive buttonCenter" ng-click="getTrainSchedule()" >Next !</button>
 
 <button ng-show="hasTrainSchedule" class="button button-positive buttonCenter" ng-click="confirmDetails()" >Done !</button>
 
  <button class="button button-clear buttonCenter button-positive" ng-click="close()">Cancel</button>
+ -->
+<div class="row">
+
+<div ng-show="!hasTrainSchedule" class="col col-50">
+  <button class="button button-positive floatright" ng-click="getTrainSchedule()" >Next !</button>
+</div>
+
+<div ng-show="hasTrainSchedule" class="col col-50">
+  <button class="button button-positive floatright" ng-click="confirmDetails()" >Done !</button>
+</div>
+
+<div class="col col-50">
+  <button class="button button-clear button-positive floatleft" ng-click="close()">Cancel</button>
+</div>
+
+</div>
 
 
 
