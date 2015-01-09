@@ -12,7 +12,7 @@ App.controller('ShareController', function($state, $scope, $rootScope, $state, $
 
 	$scope.shareText = "Awesome android app for tense free travel.";
 
-	var link = "http://testapp.com";
+	var link = "https://play.google.com/store/apps/details?id=com.labakshaya.trainalarm";
 
 	$scope.share = function(){
 

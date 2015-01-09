@@ -1,7 +1,7 @@
 {
-  "name": "railalarm",
+  "name": "trainAlarm",
   "version": "1.0.0",
-  "description": "railAlarm: An Ionic project",
+  "description": "trainAlarm: An Ionic project",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^0.7.1",

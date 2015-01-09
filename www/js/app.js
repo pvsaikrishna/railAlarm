@@ -27,12 +27,17 @@ App.run(function($ionicPlatform, $cordovaLocalNotification, $rootScope, $state, 
       $state.transitionTo("home.details");
     }
 
-/*
-    $ionicPlatform.registerBackButtonAction(function(){
-      alert('hi')
-      alert($state.current.name);
-    }, 11);
-*/
+
+      // Disable BACK button on home
+  $ionicPlatform.registerBackButtonAction(function (event) {
+    if($state.current.name=="home.details"){
+      navigator.app.exitApp();
+    }
+    else {
+      navigator.app.backHistory();
+    }
+  }, 100);
+
 
 
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
