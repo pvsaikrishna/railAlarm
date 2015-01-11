@@ -16,4 +16,11 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+<platform name="android">
+  <icon src="icons/android/36x36.png" width="36" height="36" />
+  <icon src="icons/android/48x48.png" width="48" height="48" />
+  <icon src="icons/android/64x64.png" width="64" height="64" />
+  <icon src="icons/android/72x72.png" width="72" height="72" />
+  <icon src="icons/android/96x96.png" width="96" height="96" />
+</platform>
 </widget>

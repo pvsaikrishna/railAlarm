@@ -1,4 +1,4 @@
-App.controller('TravelDetails', function($state, $scope, $rootScope, $dataService, $stateParams, $utils, $cordovaGeolocation){
+App.controller('TravelDetails', function($state, $scope, $rootScope, $dataService, $stateParams, $utils, $locationService, $dateService){
 	$rootScope.$broadcast("changeTitle", "Track my Journey");
 
 
@@ -19,6 +19,16 @@ App.controller('TravelDetails', function($state, $scope, $rootScope, $dataServic
 
 	});
 
+	$scope.getFormattedDate = function(time){
+		var date = $dateService.getDate(time);
+		return $dateService.getFormattedDate(date);
+	};
+
+	$scope.getFormattedTime = function(time){
+		var date = $dateService.getDate(time);
+		return date.getHours()+":"+date.getMinutes();
+	};	
+
 	$scope.deleteTravel = function(){
 
 		var deletePromise = $dataService.deleteRecords('travelDetails', criteria);
@@ -36,15 +46,40 @@ App.controller('TravelDetails', function($state, $scope, $rootScope, $dataServic
 
 	$scope.trackTravel = function(){
 
-		var geo_options = { maximumAge: 3000, timeout: 5000, enableHighAccuracy: false };
+			var latLogString = $scope.travelDetails.toStationLatLog;
+			var fields = latLogString.split(":");
+
+			alert(fields);
+
+			var lat1 = parseFloat(fields[0]);
+			var lon1 = parseFloat(fields[1]);
+
+			var lat2 = 65.9667;
+			var lon2 = -18.5333;
+
+			alert($locationService.caluculateDistance(lat1, lon1, lat2, lon2 ));
+			alert($locationService.distance(lat1, lon1, lat2, lon2 ));
 
 
-		var promise = $cordovaGeolocation.getCurrentPosition(geo_options);
+		var promise = $locationService.getLocation();		
 
 		promise.then( function(location){
 			alert(JSON.stringify(location));
+
+			var latLogString = $scope.travelDetails.toStationLatLog;
+			var fields = latLogString.split(":");
+
+			var lat1 = parseFloat(fields[0]);
+			var lon1 = parseFloat(fields[1]);
+
+			var lat2 = parseFloat(location.coords.latitude);
+			var lon2 = parseFloat(location.coords.longitude);
+
+			alert($locationService.caluculateDistance(lat1, lon1, lat2, lon2 ));
+			alert($locationService.distance(lat1, lon1, lat2, lon2 ));
+			
 		}, function(error){
-			alert(error);
+			alert(JSON.stringify(error));
 		})
 
 	};

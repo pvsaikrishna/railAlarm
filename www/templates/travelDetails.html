@@ -10,6 +10,11 @@
   <div class="col col-50"> {{travelDetails.trainNo}} </div>
 </div>
 
+<div ng-if="travelDetails.pnr" class="row textCenter">
+  <div class="col col-50">PNR</div>
+  <div class="col col-50"> {{travelDetails.pnr}} </div>
+</div>
+
 <div class="row textCenter">
   <div class="col col-50">From Station</div>
   <div class="col col-50"> {{travelDetails.fromStationName}} ({{travelDetails.fromStationCode}}) </div>
@@ -18,6 +23,16 @@
 <div class="row textCenter">
   <div class="col col-50">To Station</div>
   <div class="col col-50"> {{travelDetails.toStationName}} ({{travelDetails.toStationCode}}) </div>
+</div>
+
+<div class="row textCenter">
+  <div class="col col-50">Date</div>
+  <div class="col col-50"> {{getFormattedDate(travelDetails.doj)}}  </div>
+</div>
+
+<div class="row textCenter">
+  <div class="col col-50">Time</div>
+  <div class="col col-50">{{getFormattedTime(travelDetails.doj)}} </div>
 </div>
  
 <br><br>
