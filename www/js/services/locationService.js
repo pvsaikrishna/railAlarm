@@ -4,8 +4,16 @@ App.service('$locationService', function($cordovaGeolocation){
 
 
 	this.getLocation = function(){
-		var geo_options = { maximumAge: 3000, timeout: 5000, enableHighAccuracy: false };
 
+
+		var geo_options = { maximumAge: 0, timeout: 25000, enableHighAccuracy: true };
+
+	/*
+	There are three possible causes of error:
+	User denied permission to retrieve his position (code 1).
+	Position unavailable (code 2).
+	Timeout expired (code 3).
+	*/
 
 		var promise = $cordovaGeolocation.getCurrentPosition(geo_options);
 

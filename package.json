@@ -13,5 +13,18 @@
     "bower": "^1.3.3",
     "gulp-util": "^2.2.14",
     "shelljs": "^0.3.0"
-  }
+  },
+  "cordovaPlugins": [
+    "https://github.com/pvsaikrishna/cordova-HTTP.git",
+    "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+    "https://github.com/brodysoft/Cordova-SQLitePlugin.git",
+    "https://github.com/katzer/cordova-plugin-local-notifications.git",
+    "https://github.com/driftyco/ionic-plugins-keyboard.git",
+    "https://github.com/apache/cordova-plugin-statusbar.git",
+    "https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git",
+    "https://github.com/apache/cordova-plugin-network-information.git",
+    "https://github.com/floatinghotpot/cordova-admob-pro.git",
+    "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
+    "https://github.com/apache/cordova-plugin-geolocation.git"
+  ]
 }
