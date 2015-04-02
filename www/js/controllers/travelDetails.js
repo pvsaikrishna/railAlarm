@@ -117,6 +117,29 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 			alert($locationService.caluculateDistance(lat1, lon1, lat2, lon2 ));
 			alert($locationService.distance(lat1, lon1, lat2, lon2 ));
 			
+			var bgGeo = window.plugins.locationBackgroundWatcher;
+
+			var callBack = function(data){
+				alert('true');
+				alert(JSON.stringify(data));
+			};
+						var callBack1 = function(data){
+							alert('false');
+				alert(JSON.stringify(data));
+			}
+
+			bgGeo.configure(callBack, callBack1, {
+				latitude  : location.coords.latitude,
+				longitude : location.coords.longitude,
+				distanceToAlarm : 20,
+				debug : true,
+				notificationTitle : 'Train Alarm',
+				notificationText : 'Tracking your Journey', 
+				stopOnTerminate : true
+			});
+
+			bgGeo.start();
+
 		}, function(error){
 			alert(JSON.stringify(error));
 		});

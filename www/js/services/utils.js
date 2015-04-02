@@ -24,5 +24,9 @@ App.service('$utils', function($state, $ionicPopup, $cordovaToast){
 
   };
 
+  this.parseInt = function(number){
+    return parseInt(number);
+  }
+
 	
 });

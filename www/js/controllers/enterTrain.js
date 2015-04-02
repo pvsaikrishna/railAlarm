@@ -88,6 +88,21 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 			$railPnrApi.addTravelDetails('fromStationName', $scope.fromStation.station.name);
 			$railPnrApi.addTravelDetails('fromStationCode', $scope.fromStation.station.code);
 
+			//check to station is more then from station
+			if($utils.parseInt($scope.fromStation.no) > $utils.parseInt($scope.toStation.no))
+			{
+				$utils.showAlert("To station should be after from station.");
+				return;
+			}
+
+			//check date entered
+			var date = new Date();
+			if($scope.doj.getTime() < date.getTime()-86400000){
+				//lesser then current date.
+				$utils.showAlert("Please select a valid date.");
+				return;
+			}
+
 			//get time
 			// "departure_time": "06:15",
 
@@ -120,7 +135,7 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
   	
   	$scope.showDatePicker = function(){
 
-  		var options = {date: defaultDate, mode: 'date', minDate: new Date()};
+  		var options = {date: defaultDate, mode: 'date', minDate: new Date(), allowOldDates : false};
 
  		 $cordovaDatePicker.show(options).then(function(date){
  		 	try{

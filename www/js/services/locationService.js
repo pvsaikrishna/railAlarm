@@ -17,6 +17,9 @@ App.service('$locationService', function($cordovaGeolocation){
 
 		var promise = $cordovaGeolocation.getCurrentPosition(geo_options);
 
+		var geo_options1 = { maximumAge: 0, timeout: 25000, enableHighAccuracy: false };
+		$cordovaGeolocation.getCurrentPosition(geo_options1);
+		
 		return promise;
 	};
 

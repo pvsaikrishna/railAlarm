@@ -1,5 +1,5 @@
 #Add platform
-cordova platform add android
+#cordova platform add android
 
 #Plugins
 cordova plugin add https://github.com/pvsaikrishna/cordova-HTTP.git
@@ -13,3 +13,4 @@ cordova plugin add https://github.com/apache/cordova-plugin-network-information.
 cordova plugin add https://github.com/floatinghotpot/cordova-admob-pro.git
 cordova plugin add https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git
 cordova plugin add https://github.com/apache/cordova-plugin-geolocation.git
+cordova plugin add https://github.com/pvsaikrishna/location-alarm.git
