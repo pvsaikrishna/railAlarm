@@ -19,17 +19,19 @@
   <div class="col col-50">To Station</div>
   <div class="col col-50"> {{travelDetails.toStationName}} ({{travelDetails.toStationCode}}) </div>
 </div>
- 
- <div class="row">
- 	<div class="col col-20"></div>
- <div class="col">
-  Notify <input type='number' ng-model="travelDetails.distanceToAlarm" value='20'  class="glowing-border" /> KMs before destination.
-</div>	
-<div class="col col-20"></div>
+
+<div class="row textCenter">
+  <div class="col col-50">Distance, to notify before destination reach </div>
+  <div class="col col-50"> <input type='number' ng-model="travelDetails.distanceToAlarm" value='20'  class="glowing-border" /> KMs </div>
 </div>
 
-<div class="row">
+<br>
+<br>
+<br>
 
+<div class="row">
+<div class="col col-10">
+</div>
 <div class="col col-50">
 	<button class="button button-positive floatright" ng-click="saveDetails()" >Track Journey !</button>
 </div>
