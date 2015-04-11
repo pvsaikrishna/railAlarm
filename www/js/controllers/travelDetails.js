@@ -74,6 +74,8 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 
 	$scope.trackTravel = function(){
 
+		$dataService.updateStatus(travelId, 1);
+
 		var locationFetchPromise = $q.defer();
 /*			var bgGeo = window.plugins.locationBackgroundWatcher;
 

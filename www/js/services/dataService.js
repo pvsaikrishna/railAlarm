@@ -32,7 +32,7 @@ App.service('$dataService', function($cordovaSQLite, $railPnrApi){
 
 		db =  $cordovaSQLite.openDB("railAlarm.db");
 
-		var createTableQuery = 'CREATE TABLE IF NOT EXISTS travelDetails (id integer primary key, pnr text, doj integer, trainName text, trainNo text, fromStationName text, fromStationCode text, toStationName text, toStationCode text, distanceToAlarm integer, toStationLatLog text, tracking integer, status integer)';
+		var createTableQuery = 'CREATE TABLE IF NOT EXISTS travelDetails (id integer primary key, pnr text, doj integer, trainName text, trainNo text, fromStationName text, fromStationCode text, toStationName text, toStationCode text, distanceToAlarm integer, toStationLatLog text, status integer)';
 
 		var promise = executeQuery(createTableQuery);
 
@@ -141,6 +141,24 @@ App.service('$dataService', function($cordovaSQLite, $railPnrApi){
 		return executeQuery(selectQuery);
 	};
 
+
+	this.getStatusString = function(status){
+		status = parseInt(status);
+		if(status === 0){
+			return "Ready to track";
+		}else if (status === 1) {
+			return "In Progress";
+		}else if (status === 2){
+			return "Stopped";
+		}
+	};
+
+	this.updateStatus = function(travelId, status){
+
+		var updateQuery = "UPDATE travelDetails set status =  "+ status+" where id = "+ travelId;
+
+		return executeQuery(updateQuery);
+	};
 
 	init();
 
