@@ -75,11 +75,23 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 	$scope.trackTravel = function(){
 
 		var locationFetchPromise = $q.defer();
+/*			var bgGeo = window.plugins.locationBackgroundWatcher;
+
+			var callBack = function(data){
+				alert('true dkfj');
+				alert(JSON.stringify(data));
+			};
+						var callBack1 = function(data){
+							alert('false dkfj');
+				alert(JSON.stringify(data));
+			}
+
+		bgGeo.getlocation(callBack, callBack1);*/
 
 		//check1 -- check if gps is enabled or not
 
 		diagnostic.isGpsEnabled(function(successData){
-			alert('gps is enabled'+JSON.stringify(successData));
+			//alert('gps is enabled'+JSON.stringify(successData));
 			if(successData.success == true){
 				locationFetchPromise.resolve();
 			}else{
@@ -111,13 +123,11 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 			var lat1 = parseFloat(fields[0]);
 			var lon1 = parseFloat(fields[1]);
 
-			var lat2 = parseFloat(location.coords.latitude);
-			var lon2 = parseFloat(location.coords.longitude);
+			var lat2 = parseFloat(location.latitude);
+			var lon2 = parseFloat(location.longitude);
 
 			alert($locationService.caluculateDistance(lat1, lon1, lat2, lon2 ));
-			alert($locationService.distance(lat1, lon1, lat2, lon2 ));
 			
-			var bgGeo = window.plugins.locationBackgroundWatcher;
 
 			var callBack = function(data){
 				alert('true');
@@ -129,8 +139,8 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 			}
 
 			bgGeo.configure(callBack, callBack1, {
-				latitude  : location.coords.latitude,
-				longitude : location.coords.longitude,
+				latitude  : location.latitude,
+				longitude : location.longitude,
 				distanceToAlarm : 20,
 				debug : true,
 				notificationTitle : 'Train Alarm',
@@ -138,7 +148,7 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 				stopOnTerminate : true
 			});
 
-			bgGeo.start();
+			//bgGeo.start();
 
 		}, function(error){
 			alert(JSON.stringify(error));

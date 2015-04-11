@@ -1,31 +1,49 @@
 "use strict";
 
-App.service('$locationService', function($cordovaGeolocation){
+App.service('$locationService', function($cordovaGeolocation, $ionicLoading, $q){
+
+
+var showProgress = function(){
+                $ionicLoading.show({
+                  template: 'Fetching location co-ordinates. Please wait as this might take sometime ...'
+                 });
+    };
+
+    var hideProgress = function(){
+            $ionicLoading.hide();
+    }
 
 
 	this.getLocation = function(){
 
+		var q = $q.defer();
 
-		var geo_options = { maximumAge: 0, timeout: 25000, enableHighAccuracy: true };
+        var geoLocation = window.plugins.locationBackgroundWatcher;
 
-	/*
-	There are three possible causes of error:
-	User denied permission to retrieve his position (code 1).
-	Position unavailable (code 2).
-	Timeout expired (code 3).
-	*/
+		showProgress();
 
-		var promise = $cordovaGeolocation.getCurrentPosition(geo_options);
+		geoLocation.getlocation(function(successData){
 
-		var geo_options1 = { maximumAge: 0, timeout: 25000, enableHighAccuracy: false };
-		$cordovaGeolocation.getCurrentPosition(geo_options1);
+			if(typeof successData.latitude !== 'undefined'){
+        		q.resolve(successData);
+        		hideProgress();
+        	}
+
+		}, function(error){
+
+			q.reject(error);
+			hideProgress();
+		});
 		
-		return promise;
+
+
+		return q.promise;
 	};
+
+	
 
 	this.caluculateDistance = function(lat1, lon1, lat2, lon2) {
 
-		alert(lat1+"-"+lon1+"-"+lat2+"-"+lon2);
 
 		var unit = "K";
 
@@ -45,7 +63,6 @@ App.service('$locationService', function($cordovaGeolocation){
 	};    
 
 	this.distance = function(lat1,lon1,lat2,lon2) {
-		alert(lat1+"-"+lon1+"-"+lat2+"-"+lon2);
 		var R = 6371; // km (change this constant to get miles)
 		var dLat = (lat2-lat1) * Math.PI / 180;
 		var dLon = (lon2-lon1) * Math.PI / 180;
