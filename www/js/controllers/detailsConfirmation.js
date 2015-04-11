@@ -13,6 +13,7 @@ App.controller('DetailsConfirmation', function($railPnrApi, $state, $scope, $roo
 	$scope.saveDetails = function(){
 
 		$railPnrApi.addTravelDetails('distanceToAlarm', $scope.travelDetails.distanceToAlarm);
+		$railPnrApi.addTravelDetails('status', 0);
 
 
 		var promise = $dataService.saveTravelDetails();

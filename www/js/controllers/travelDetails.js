@@ -13,6 +13,7 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 
 		if(res.rows.length > 0){
 			$scope.travelDetails = res.rows.item(0);
+			$scope.travelDetails.remainingDistance = "N/A";
 		}
 
 	},function(error){
@@ -28,6 +29,10 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 		var date = $dateService.getDate(time);
 		return date.getHours()+":"+date.getMinutes();
 	};	
+
+	$scope.getFormattedStatus = function(status){
+		return $dataService.getStatusString(status);
+	};
 
 	$scope.deleteTravel = function(){
 
@@ -128,7 +133,8 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 			var lat2 = parseFloat(location.latitude);
 			var lon2 = parseFloat(location.longitude);
 
-			alert($locationService.caluculateDistance(lat1, lon1, lat2, lon2 ));
+			var remainingDistance = $locationService.distance(lat1, lon1, lat2, lon2 );
+			$scope.travelDetails.remainingDistance = remainingDistance;
 			
 
 			var callBack = function(data){

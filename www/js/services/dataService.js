@@ -143,14 +143,19 @@ App.service('$dataService', function($cordovaSQLite, $railPnrApi){
 
 
 	this.getStatusString = function(status){
-		status = parseInt(status);
-		if(status === 0){
-			return "Ready to track";
-		}else if (status === 1) {
-			return "In Progress";
-		}else if (status === 2){
-			return "Stopped";
+		try{
+			status = parseInt(status);
+			if(status === 0){
+				return "Ready to track";
+			}else if (status === 1) {
+				return "In Progress";
+			}else if (status === 2){
+				return "Stopped";
+			}
+		}catch(err){
+
 		}
+		return "NA";
 	};
 
 	this.updateStatus = function(travelId, status){
