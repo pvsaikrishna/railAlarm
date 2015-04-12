@@ -1,6 +1,6 @@
 "use strict";
 
-App.service('$utils', function($state, $ionicPopup, $cordovaToast){
+App.service('$utils', function($state, $ionicPopup, $cordovaToast, $rootScope){
 
 
   this.goToHome = function(){
@@ -9,12 +9,17 @@ App.service('$utils', function($state, $ionicPopup, $cordovaToast){
 
    // An alert dialog
   this.showAlert = function(message, stay) {
+    if(typeof stay === 'undefined'){
+      stay = false
+    }
    var alertPopup = $ionicPopup.alert({
      title: 'Error :(',
      template: message
    });
    alertPopup.then(function(res) {
-     $rootScope.goToHome();
+     if(!stay){
+      $rootScope.goToHome();
+    }
    });
   };
 

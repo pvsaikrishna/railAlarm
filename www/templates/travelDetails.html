@@ -51,12 +51,18 @@
 
 <div class="row">
 
-<div class="col col-33 col-offset-10">
+<div ng-show="!isTracking" class="col col-33 col-offset-10">
 <button class="button button-positive textCenter icon-right ion-location floatright " ng-click="trackTravel()" >Track</button>
 </div>
+<div ng-show="isTracking" class="col col-33 col-offset-10">
+<button class="button button-positive textCenter icon-right ion-loop floatright " ng-click="refreshTravel()" >Refresh</button>
+</div>
 
-<div class="col col-33 col-offset-10">
+<div ng-show="!isTracking" class="col col-33 col-offset-10">
 <button class="button button-assertive textCenter icon-right ion-trash-a floatleft" ng-click="deleteTravel()">Delete</button>
+</div>
+<div ng-show="isTracking" class="col col-33 col-offset-10">
+<button class="button button-assertive textCenter icon-right ion-ios-close-outline floatleft" ng-click="stopTracking()">Stop</button>
 </div>
 
 </div>

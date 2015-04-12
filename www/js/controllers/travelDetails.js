@@ -1,171 +1,225 @@
-App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataService, $stateParams, $utils, $locationService, $dateService,$ionicPopup){
-	$rootScope.$broadcast("changeTitle", "Track my Journey");
+App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataService, $stateParams, $utils, $locationService, $dateService, $ionicPopup) {
+    $rootScope.$broadcast("changeTitle", "Track my Journey");
+
+    var geoLocation = window.plugins.locationBackgroundWatcher;
 
 
-	var travelId = $stateParams.id;
+    var travelId = $stateParams.id;
 
-	var criteria = {};
-	criteria['id'] = travelId;
+    $scope.isTracking = false;
 
-	var promise = $dataService.getResults('travelDetails', criteria);
+    var criteria = {};
+    criteria['id'] = travelId;
 
-	promise.then(function(res){
+    var promise = $dataService.getResults('travelDetails', criteria);
 
-		if(res.rows.length > 0){
-			$scope.travelDetails = res.rows.item(0);
-			$scope.travelDetails.remainingDistance = "N/A";
-		}
+    promise.then(function(res) {
 
-	},function(error){
+        if (res.rows.length > 0) {
+            $scope.travelDetails = res.rows.item(0);
+            $scope.travelDetails.remainingDistance = "N/A";
 
-	});
+            if (parseInt($scope.travelDetails.status) === 1) {
+                $scope.isTracking = true;
+            }
+        }
 
-	$scope.getFormattedDate = function(time){
-		var date = $dateService.getDate(time);
-		return $dateService.getFormattedDate(date);
-	};
+    }, function(error) {
 
-	$scope.getFormattedTime = function(time){
-		var date = $dateService.getDate(time);
-		return date.getHours()+":"+date.getMinutes();
-	};	
+    });
 
-	$scope.getFormattedStatus = function(status){
-		return $dataService.getStatusString(status);
-	};
+    $scope.getFormattedDate = function(time) {
+        var date = $dateService.getDate(time);
+        return $dateService.getFormattedDate(date);
+    };
 
-	$scope.deleteTravel = function(){
+    $scope.getFormattedTime = function(time) {
+        var date = $dateService.getDate(time);
+        return date.getHours() + ":" + date.getMinutes();
+    };
 
-		var deletePromise = $dataService.deleteRecords('travelDetails', criteria);
+    $scope.getFormattedStatus = function(status) {
+        return $dataService.getStatusString(status);
+    };
 
-		deletePromise.then(function(res){
+    $scope.deleteTravel = function() {
 
-			$utils.showToast('Deleted successfully');
-		
-		    $utils.goToHome();
-		    
-		},function(error){
+        var deletePromise = $dataService.deleteRecords('travelDetails', criteria);
 
-		});		
-	};
+        deletePromise.then(function(res) {
 
-	var openLocationSettings = function(locationFetchPromise){
+            $utils.showToast('Deleted successfully');
 
-		diagnostic.switchToLocationSettings(function(data){ 
-			//locationFetchPromise.resolve();
-			locationFetchPromise.reject(); //promise is being resolved immediately even before user turns GPS on.
-		}, function(errorData){ 
-			$rootScope.showAlert("Unable to open location settings. Please enable it manually.");
-			locationFetchPromise.reject();
-		 });
-	}
+            $utils.goToHome();
 
+        }, function(error) {
 
-	 // A confirm dialog
- 	var showConfirm = function(locationFetchPromise) {
-  		 var confirmPopup = $ionicPopup.confirm({
-    		 title: 'Location Settings',
-   			 template: 'Tracking needs location settings to be enabled. Click OK to enable and try again.'
-  		 });
-  	 confirmPopup.then(function(res) {
-    	 if(res) {
-    	 	openLocationSettings(locationFetchPromise);
-    	 } else {
-    	 	locationFetchPromise.reject();
-    	 	$rootScope.goToHome();
-    	 }
- 		});
-	 };
+        });
+    };
 
-	$scope.trackTravel = function(){
+    var openLocationSettings = function(locationFetchPromise) {
 
-		$dataService.updateStatus(travelId, 1);
-
-		var locationFetchPromise = $q.defer();
-/*			var bgGeo = window.plugins.locationBackgroundWatcher;
-
-			var callBack = function(data){
-				alert('true dkfj');
-				alert(JSON.stringify(data));
-			};
-						var callBack1 = function(data){
-							alert('false dkfj');
-				alert(JSON.stringify(data));
-			}
-
-		bgGeo.getlocation(callBack, callBack1);*/
-
-		//check1 -- check if gps is enabled or not
-
-		diagnostic.isGpsEnabled(function(successData){
-			//alert('gps is enabled'+JSON.stringify(successData));
-			if(successData.success == true){
-				locationFetchPromise.resolve();
-			}else{
-				showConfirm(locationFetchPromise);
-			}
-		},function(errorData){
-			showConfirm(locationFetchPromise);
-		});
-
-		//check2 -- check if any other journeys are being tracked
+        diagnostic.switchToLocationSettings(function(data) {
+            //locationFetchPromise.resolve();
+            locationFetchPromise.reject(); //promise is being resolved immediately even before user turns GPS on.
+        }, function(errorData) {
+            $rootScope.showAlert("Unable to open location settings. Please enable it manually.");
+            locationFetchPromise.reject();
+        });
+    }
 
 
-		locationFetchPromise.promise.then( function(){
+    // A confirm dialog
+    var showConfirm = function(locationFetchPromise) {
+        var confirmPopup = $ionicPopup.confirm({
+            title: 'Location Settings',
+            template: 'Tracking needs location settings to be enabled. Click OK to enable and try again.'
+        });
+        confirmPopup.then(function(res) {
+            if (res) {
+                openLocationSettings(locationFetchPromise);
+            } else {
+                locationFetchPromise.reject();
+                $rootScope.goToHome();
+            }
+        });
+    };
 
-		var latLogString = $scope.travelDetails.toStationLatLog;
-		var fields = latLogString.split(":");
+    var checkGPSAvailability = function() {
+        var locationFetchPromise = $q.defer();
 
-		alert(fields);
+        //check1 -- check if gps is enabled or not
+        diagnostic.isGpsEnabled(function(successData) {
+            //alert('gps is enabled'+JSON.stringify(successData));
+            if (successData.success == true) {
+                locationFetchPromise.resolve();
+            } else {
+                showConfirm(locationFetchPromise);
+            }
+        }, function(errorData) {
+            showConfirm(locationFetchPromise);
+        });
 
-			
-		var promise = $locationService.getLocation();		
+        return locationFetchPromise.promise;
+    };
 
-		promise.then( function(location){
-			alert(JSON.stringify(location));
+    var updateTravelStatus = function(status){
+    	$dataService.updateStatus(travelId, status);
+    	if(status === 1){
+    		$scope.isTracking = true;
+    	}else{
+    		$scope.isTracking = false;
+    	}
+    }
 
-			var latLogString = $scope.travelDetails.toStationLatLog;
-			var fields = latLogString.split(":");
+    $scope.stopTracking = function() {
+        geoLocation.stop(function(success) {
+            updateTravelStatus(2);
+        }, function(error) {
 
-			var lat1 = parseFloat(fields[0]);
-			var lon1 = parseFloat(fields[1]);
+        });
+    };
 
-			var lat2 = parseFloat(location.latitude);
-			var lon2 = parseFloat(location.longitude);
 
-			var remainingDistance = $locationService.distance(lat1, lon1, lat2, lon2 );
-			$scope.travelDetails.remainingDistance = remainingDistance;
-			
 
-			var callBack = function(data){
-				alert('true');
-				alert(JSON.stringify(data));
-			};
-						var callBack1 = function(data){
-							alert('false');
-				alert(JSON.stringify(data));
-			}
+    $scope.refreshTravel = function() {
+        //fetch location co-ordinates and update remaining distance.
 
-			bgGeo.configure(callBack, callBack1, {
-				latitude  : location.latitude,
-				longitude : location.longitude,
-				distanceToAlarm : 20,
-				debug : true,
-				notificationTitle : 'Train Alarm',
-				notificationText : 'Tracking your Journey', 
-				stopOnTerminate : true
-			});
+        var gpsCheckPromise = checkGPSAvailability();
 
-			//bgGeo.start();
+        gpsCheckPromise.then(function() {
 
-		}, function(error){
-			alert(JSON.stringify(error));
-		});
+                var latLogString = $scope.travelDetails.toStationLatLog;
+                var fields = latLogString.split(":");
 
-		}, function(){} );
+                alert(fields);
 
-	};
+                var promise = $locationService.getLocation();
 
-	
+                promise.then(function(location) {
+                    alert(JSON.stringify(location));
+
+                    var latLogString = $scope.travelDetails.toStationLatLog;
+                    var fields = latLogString.split(":");
+
+                    var lat1 = parseFloat(fields[0]);
+                    var lon1 = parseFloat(fields[1]);
+
+                    var lat2 = parseFloat(location.latitude);
+                    var lon2 = parseFloat(location.longitude);
+
+                    var remainingDistance = $locationService.distance(lat1, lon1, lat2, lon2);
+                    $scope.travelDetails.remainingDistance = remainingDistance;
+
+                }, function(error) {
+                    alert(JSON.stringify(error));
+                });
+
+
+            }, function(error) {
+
+
+            }
+
+        );
+    };
+
+    $scope.trackTravel = function() {
+
+        //check1 -- check if any other journeys are being tracked
+        var criteria = {};
+        criteria['status'] = 1;
+
+        var dbQueryPromise = $dataService.getResults('travelDetails', criteria);
+
+        dbQueryPromise.then(function(res) {
+            if (res.rows.length == 0) {
+                //check2 gps enabled or not
+                var gpsCheckPromise = checkGPSAvailability();
+
+                gpsCheckPromise.then(function() {
+
+                    $scope.refreshTravel();
+
+                    var latLogString = $scope.travelDetails.toStationLatLog;
+	                var fields = latLogString.split(":");
+
+
+                    var successCallBack = function(data) {
+                        geoLocation.start(function(success) {
+                        	updateTravelStatus(1);
+                    	}, function(error) {
+
+                    	});
+                    };
+                    var errorCallBack = function(data) {
+                        alert('false');
+                        alert(JSON.stringify(data));
+                    }
+
+                    geoLocation.configure(successCallBack, errorCallBack, {
+                        latitude: fields[0],
+                        longitude: fields[1],
+                        distanceToAlarm: $scope.travelDetails.distanceToAlarm,
+                        debug: true,
+                        notificationTitle: 'Train Alarm',
+                        notificationText: 'Tracking your Journey',
+                        stopOnTerminate: true
+                    });
+
+                    
+
+                }, function() {});
+
+            } else {
+                $utils.showAlert("Tracking of another travel is in progress. Only one travel can be tracked at a time.", true);
+            }
+        }, function(error) {
+
+        });
+
+    };
+
+
 
 })
