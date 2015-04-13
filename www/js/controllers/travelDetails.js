@@ -3,11 +3,15 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 
     var geoLocation = window.plugins.locationBackgroundWatcher;
 
+    var getFormattedStatus = function(status) {
+        return $dataService.getStatusString(status);
+    };
 
     var travelId = $stateParams.id;
 
-    $scope.isTracking = false;
-
+    $scope.travelDetails = {};
+    $scope.travelDetails.isTracking = false;
+    $scope.travelDetails.trackingStatus = "N/A";
     var criteria = {};
     criteria['id'] = travelId;
 
@@ -20,8 +24,10 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
             $scope.travelDetails.remainingDistance = "N/A";
 
             if (parseInt($scope.travelDetails.status) === 1) {
-                $scope.isTracking = true;
+                $scope.travelDetails.isTracking = true;
             }
+
+            $scope.travelDetails.trackingStatus = getFormattedStatus($scope.travelDetails.status);
         }
 
     }, function(error) {
@@ -35,12 +41,10 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
 
     $scope.getFormattedTime = function(time) {
         var date = $dateService.getDate(time);
-        return date.getHours() + ":" + date.getMinutes();
+        return date.toLocaleTimeString();
     };
 
-    $scope.getFormattedStatus = function(status) {
-        return $dataService.getStatusString(status);
-    };
+
 
     $scope.deleteTravel = function() {
 
@@ -104,19 +108,22 @@ App.controller('TravelDetails', function($q, $state, $scope, $rootScope, $dataSe
     };
 
     var updateTravelStatus = function(status){
-    	$dataService.updateStatus(travelId, status);
-    	if(status === 1){
-    		$scope.isTracking = true;
-    	}else{
-    		$scope.isTracking = false;
-    	}
+    	var promise = $dataService.updateStatus(travelId, status);
+        promise.then(function(success){
+        if(status === 1){
+            $scope.travelDetails.isTracking = true;
+        }else{
+            $scope.travelDetails.isTracking = false;
+        }
+        $scope.travelDetails.trackingStatus = getFormattedStatus(status);
+        }, function(error){})
+
     }
 
     $scope.stopTracking = function() {
         geoLocation.stop(function(success) {
             updateTravelStatus(2);
         }, function(error) {
-
         });
     };
 

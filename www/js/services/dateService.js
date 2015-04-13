@@ -10,11 +10,8 @@ App.service('$dateService', function($cordovaSQLite, $railPnrApi){
 
 	this.getFormattedDate = function(date){
 
-		var curr_date = date.getDate();
-		var curr_month = date.getMonth();
-		var curr_year = date.getFullYear();
-
-		return curr_date + "-" + m_names[curr_month] + "-" + curr_year;
+		return date.toDateString();
+		
 	};
 
 	this.getDate = function(time){
