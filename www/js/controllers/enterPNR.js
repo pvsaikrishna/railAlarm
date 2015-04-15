@@ -106,7 +106,10 @@ App.controller('EnterPNR', function($railPnrApi, $state, $scope, $rootScope, $co
 			var data = $railPnrApi.getJSObject(responseData.data);
 
 			if(data.error != null){
-				$utils.showAlert(data.error);
+				if(data.error.indexOf("Network Error") !== -1){
+					data.error = "PNR not found. Please check!";
+				}
+				$utils.showAlert(data.error, true);
 				return;
 			}
 

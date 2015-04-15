@@ -48,16 +48,18 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 
 			try{
 
-			$scope.hasTrainSchedule = true;
 			
 			responseData = $railPnrApi.getJSObject(responseData);
 
 			var data = $railPnrApi.getJSObject(responseData.data);
 
 			if(typeof data.msg != 'undefined'){
-				$utils.showAlert(data.msg);
+				$utils.showAlert(data.msg, true);
 				return;
 			}
+
+			$scope.hasTrainSchedule = true;
+
 
 			$scope.trainData = $railPnrApi.getJSObject(data.train);
 			
@@ -91,7 +93,7 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 			//check to station is more then from station
 			if($utils.parseInt($scope.fromStation.no) > $utils.parseInt($scope.toStation.no))
 			{
-				$utils.showAlert("To station should be after from station.");
+				$utils.showAlert("To station should be after from station.", true);
 				return;
 			}
 
@@ -99,7 +101,7 @@ App.controller('EnterTrain', function($railPnrApi, $state, $scope, $rootScope, $
 			var date = new Date();
 			if($scope.doj.getTime() < date.getTime()-86400000){
 				//lesser then current date.
-				$utils.showAlert("Please select a valid date.");
+				$utils.showAlert("Please select a valid date.", true);
 				return;
 			}
 
