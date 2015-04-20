@@ -146,6 +146,14 @@ App.config(function($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('help', {
+      url: '/help',
+      views: {
+        'homeView': {
+          templateUrl: 'templates/help.html'
+        }
+      }
+    })
     .state('shareWith', {
       url: '/shareWith',
       views: {
