@@ -10,8 +10,8 @@ window.isAndroid = false;
 window.ad_units = {
     
       android : {
-           banner: 'ca-app-pub-2712795411006242/4035709753', // or DFP format "/6253334/dfp_example_ad"
-           interstitial: 'ca-app-pub-2712795411006242/2558976553'
+           banner: 'ca-app-pub-8738466412986891/8799853769', // or DFP format "/6253334/dfp_example_ad"
+           interstitial: 'ca-app-pub-8738466412986891/1276586964'
         }
   };
 
